@@ -1,0 +1,678 @@
+---
+title: "Fundamentos de programación y análisis de datos en R"
+subtitle: Una introducción no tan breve
+author: "Juan Sebastián Arias Hernández"
+institute: Universidad Tecnológica de Pereira
+output:
+  ioslides_presentation:
+     logo: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/Rlogo.png
+     css:  ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/estilo.css
+bibliography: presentacion.bib
+---
+
+# Introducción
+
+## R
+
+<p align="justify">
+*R* es un software para realizar computación estadística y visualización de datos *_[@r-projec]_*; fue creado por *Ross Ihaka* y *Robert Gentleman* en 1991. 
+</p>
+
+<p align="justify">
+En el año  1995 es licenciado bajo GNU (*General Public License*) [@RDataSience] haciendo de este un software libre. Esto permitió acceder al código fuente posibilitando mejoras y a que la cantidad de usuarios aumentara, a tal punto de convertirse en uno de los programas más utilizados para realizar análisis de datos. 
+</p>
+
+<p align="justify">
+La filosofía de *_R_*, [@RDataSience], consiste en crear un entorno que permita realizar rutinas estadísticas complejas de manera sencilla mediante líneas de comando, adicionalmente, ofrecer un lenguaje para realizar programas en caso que las necesidades lo requieran.
+</p>
+
+## ¿Por qué utilizar R? {#future-steps .emphasized}
+<p align="justify">
+**R**  Es libre. Lo que implica que no hay que pagar por instalarlo, actualizarlo o compartilo. Además de lo anterior, algunos beneficios que valen la pena resaltar son:
+</p>
+
+<div align="justify">
+-  Tiene gran acogida en la comunidad científica y académica, por lo tanto, hay un gran número de personas dedicando su tiempo, esfuerzo y trabajo desarrollando en él.
+-  Aprender un software requiere esfuerzo y tiempo, por lo que conocer una herramienta que pueda ser utilizada en ambientes académicos, investigativos y empresariales.
+- Una comunidad grande y sólida que brinda soporte y nuevos paquetes. 
+</div>
+
+## Desventajas 
+<div align="justify">
+-  No tiene soporte técnico ni garantía. Esto se resuelve debido a que la comunidad es activa y está en crecimiento
+-  No es rápido y si el código esta mal escrito puede ser terriblemente lento. 
+-  Los objetos son almacenados en memoria, por lo tanto el mayor objeto está dado por la *RAM* del computador.
+- No hay garantía que las rutinas estadísticas que vienen con los paquetes sean correctas. De allí que se debe tener muy claro lo que se está haciendo para identificar inconsistencias. 
+-  Los usuarios de *R* no son generalmente programadores, por esta razón muchas de las rutinas están enfocadas a los resultados y no a desarrollar un código claro y rápido.
+</div>
+
+# Manos a la obra
+
+## Objetos 
+<p align="justify">
+En *R* existen 5 objetos principales: 
+</p>
+- Numeric (números reales).
+- Enteros.
+- Complejos.
+- Lógicos.
+- Caracteres.
+
+Adicionalmente *R* posee algunas variables de uso común:
+
+- <p align="justify"> **NaN** (Not a Number). Indica que se están realizando operaciones incorrectas. </p>
+
+- <p align="justify"> **NA** Not Available. Es lo que en estadística se conoce comúnmente como faltantes. 
+</p>
+
+*** 
+- <p align="justify"> **Inf** Representa el infinito. </p>
+- <p align="justify"> **NULL** Se utiliza para representar un lista de longitud cero. </p>
+
+***Ejemplos*** 
+<div align="justify">
+En la consola escribir y luego dar _Enter_ a cada una de las siguientes líneas.
+  
+```{r, highlight=TRUE, collapse=TRUE, eval=FALSE}
+      TRUE  # Este objeto es lógico
+      10L # Se crea el diez como un entero
+      3.1415 # Este es un objeto de tipo double
+      5 + 2i # Número complejo
+      "hola mundo" # Es un carácter
+      5 / Inf # El resultado debe ser cero.
+      Inf / Inf # El resultado es un NaN
+      NA # Representa un valor faltante
+```
+
+</div>
+
+## Operadores
+<p align="justify">
+Los operadores son símbolos que indican que "operación" debe llevarse a cabo. 
+</p>
+
+### Operadores lógicos
+
+<div class="columns-2">
+ Operador | Descripción
+ :---------:|:--------:
+ &    | Y lógico  (La comparación se realiza a lo largo del objeto).
+ \|   | Ó lógico (La comparación realiza a lo largo del objeto).
+ !    | Operador de negación.
+ 
+ Operador | Descripción
+ :---------:|:--------:
+ &&  |   (La comparación se realiza al primer elemento)
+ \|\| |    (La comparación se realiza al primer elemento)
+ xor() |  Es igual a: !(x\|y). Excluye el or. 
+</div>
+
+***
+### Operadores relacionales
+<p align="center">
+ Operador | Símbolo
+ :---------:|:--------:
+ Igual a  | ==
+ Menor que| <
+ Mayor que| >
+ Menor o igual | $\leq$
+ Mayor o igual | $\geq$
+ Diferente | !=
+</p>
+
+***
+### Operadores aritméticos.
+
+<div class="columns-2">
+   Operador | Símbolo | 
+   :---------:|:--------:
+   Suma  | +
+   Resta| -
+   Multiplicación| *
+   División | /
+   Potenciación| ^
+ 
+   Operador | Símbolo
+   :---------:|:--------:
+   Módulo | %%
+   División entera | %/%
+   Multiplicación de matrices | %*%
+   Producto exterior | %o%
+   Producto Kronecker | %x%
+
+</div>
+
+***
+### Operadores de asignación
+<p align="center">
+  Operador | Descripción
+  :---------:|:--------:
+    <-, =  | Asignación a la izquierda
+    ->     | Asignación a la derecha. 
+</p>
+
+Un operador que emplearemos frecuentemente es el _dos puntos_. Este nos permite crear secuencias. 
+
+```{r, highlight=TRUE, collapse=TRUE, eval=TRUE}
+10:1
+5:10
+```
+
+## Precedencias
+
+<p align="justify"> 
+Las ***Precedencias*** indican el orden en que se ejecutan las operaciones aritméticas y lógicas, [link](https://www.nytimes.com/2019/08/02/science/math-equation-pedmas-bemdas-bedmas.html?smtyp=cur&smid=tw-nytimes). A continuación algunas de ellas numeradas de la más importante 1 a la menos 10. 
+</p>
+
+<div style="float: left; width: 50%;">
+ 1. Paréntesis
+ 2. Potenciación
+ 3. Dos puntos
+ 4. Módulo
+ 5. Multiplicación y división.
+</div>
+
+<div style="float: left; width: 50%;">
+  <ol start="6">
+    <li> Suma y resta </li>
+    <li> Comparaciones </li> 
+    <li> Negación (!) </li>
+    <li> Y lógico </li>
+    <li> Ó lógico </li>
+  </ol>
+</div>
+
+
+# Funciones
+
+## Introducción a las funciones
+<div align="justify">
+Las funciones son una clase particular de objetos. A estos objetos generalmente se les ingresa unos argumentos, aunque pueden no llevarlos, para que realicen unos procedimientos y retornes una respuesta. La sintaxis se ejemplifica a continuación. 
+
+<p align="justify">
+     <font color="blue">
+     <b>
+     _Nombre_Función(Arg1, Arg2, Arg3, ...)_
+     </b>
+    </font>
+</p>
+Algunas funciones de uso común.
+
+- **_c()_**: Permite combinar los argumentos para crear vectores. **Importante:** es una _c_ minúscula.
+
+ - **_getwd()_**: Permite identificar el directorio de trabajo. Esta es la carpta donde *R* va a busacar los archivos, datos y programas por defecto. 
+
+
+</div>
+
+***
+ - **_setwd()_**: Esta función se utiliza para cambiar el directorio de trabajo.
+
+ - **_help()_**: Accedemos a la documentación. 
+
+ - **_example()_**: Imprime ejemplos de las funciones.
+
+
+```{r, highlight=TRUE, collapse=TRUE, eval=TRUE}
+  c(1, 10, 20)
+  1:5
+  example("mean")
+```
+
+
+## Ejercicios.
+<p align="justify">
+Con las funciones _example()_ y _help()_ estudie los siguientes comandos:
+</p>
+
+<div style="float: left; width: 50%;">
+ 1. sd()
+ 2. mean()
+ 3. length()
+ 4. nrow()
+ 5. ncol()
+</div>
+
+<div style="float: left; width: 50%; start="6";">
+<ol start="6">
+ <li> rep() </li>
+ <li> seq() </li>
+ <li> abs() </li>
+ <li> floor() </li>
+ <li> ceiling() </li>
+</div>
+
+## Gráficos en dos dimensiones.
+ 
+
+```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
+plot(1, 1)
+```
+
+Esta función tiene una gran cantidad de parámetros. Recuerden que podemos acceder a la documentación con la función **help()**
+
+***
+### Grafiquemos una parábola.
+```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
+x <- seq(-10, 10, by = 0.5)
+y <- x ^ 2
+plot(x, y)
+```
+
+***
+
+\\(O.o)/ Ahora unamos los puntos con una línea.
+
+```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
+x <- seq(-10, 10, by = 0.5)
+y <- x ^ 2
+plot(x, y, type = "l")
+```
+
+***
+ Modifiquemos el tipo de la línea, el espesor y el color. 
+```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
+x <- seq(-10, 10, by = 0.5)
+y <- x ^ 2
+plot(x, y, type = "l", lwd = 4, lty = 2, col = "purple")
+```
+
+***
+Podemos poner el título al gráfico y a los ejes.
+```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
+x <- seq(-10, 10, by = 0.5)
+y <- x ^ 2
+plot(x, y, type = "l", lwd = 4, lty = 3, col = "darkblue", 
+     main = "Parábola", xlab = "Dominio", ylab = "Rango")
+```
+
+*** 
+
+<div align="justify">
+Una de las distribuciones de probabilidad más utilizadas en estadística es la [normal](https://mathworld.wolfram.com/NormalDistribution.html). Su expresión viene dada por: 
+
+$$
+  f(x) = \frac{1}{\sigma\sqrt{2 \pi}} e ^ {-\frac{(x-\mu)^2}{2\sigma^2}}
+$$
+Donde $\mu$ representa el parámetro de posición y $\sigma$ el de forma. 
+
+
+Vamos a realizar un plot de la gaussiana con las siguientes características: 
+
+1. $\mu = 0, \mu = 2, \mu = -2$. y $-10 \leq x \leq 10$.
+2. Debe tener leyenda. 
+3. El eje y debe tener la función anterior. 
+
+Tips: [clic Me](https://stat.ethz.ch/R-manual/R-patched/library/grDevices/html/plotmath.html) y en la consola escriba: **demo(plotmath)**
+
+</div>
+
+***
+El resultado debe ser similar al siguiente: 
+
+```{r,echo=FALSE,eval=TRUE, out.height='100%', out.width='100%', fig.align='center'}
+sigma <- 1
+mu <- 0
+x <- seq(-10, 10, by = 0.1)
+y <- 1 / (sigma * sqrt(2 * pi)) * exp(- (x - mu) ^ 2 /(2 * sigma ^2))
+par(mar = c(5, 6.5, 4.5, 4))
+plot(x, y, type = "l", lwd = 2, lty = 1, col = "darkblue", 
+     main = "Distribución Normal", 
+     ylab = expression(
+       italic(f[x]) == frac(1, sigma*sqrt(2*pi)) * italic(e)^(-frac((x - mu)^2,2*sigma^2))
+     ), xaxs = "i", yaxs = "i", ylim = c(0, 0.42))
+mu <- 2
+y1 <- 1 / (sigma * sqrt(2 * pi)) * exp(- (x - mu) ^ 2 /(2 * sigma ^2))
+lines(x, y1, type = "l", lwd = 2, lty = 1, col = "salmon",  xlab = "Dominio")
+
+mu <- -2
+y1 <- 1 / (sigma * sqrt(2 * pi)) * exp(- (x - mu) ^ 2 /(2 * sigma ^2))
+lines(x, y1, type = "l", lwd = 2, lty = 1, col = "purple",  xlab = "Dominio")
+abline(v = seq(-10, 10, by = 1), h = seq(0, 0.4, 0.1), col = "gray", lty = 2)
+legend(x = 5, y = 0.4, legend = c(expression(mu==-2),expression(mu == 0), expression(mu == 2)), 
+       fill = c("purple", "blue", "salmon"))
+```
+
+***
+Un poco de ayuda para que nos rinda. 
+
+```{r,echo=TRUE,eval=FALSE}
+# Primera: mu = 0
+sigma <- 1
+mu <- 0
+x <- seq(-10, 10, by = 0.1)
+y <- 1 / (sigma * sqrt(2 * pi)) * exp(- (x - mu) ^ 2 /(2 * sigma ^2))
+plot(x, y, type = "l", lwd = 2, lty = 1, col = "darkblue")
+
+# Segunda: mu = 2
+mu <- 2
+y <- 1 / (sigma * sqrt(2 * pi)) * exp(- (x - mu) ^ 2 /(2 * sigma ^2))
+lines(x, y, type = "l", lwd = 2, lty = 1, 
+      col = "salmon",  xlab = "Dominio")
+
+# Tercera: mu = -2
+mu <- -2
+y <- 1 / (sigma * sqrt(2 * pi)) * exp(- (x - mu) ^ 2 /(2 * sigma ^2))
+lines(x, y, type = "l", lwd = 2, lty = 1, 
+      col = "purple",  xlab = "Dominio")
+```
+
+
+## Ejercicios
+Realice las gráficas de las siguientes funciones y en el eje **y** escriba la relación matemática. 
+
+- $f(x) = ln(x)  \quad 0 < x \leq 10$
+- $f(x) = \sqrt[2]{x} \quad 0 \leq x \leq 10$
+- $f(x) = 3x^2 \quad -5 \leq x \leq 5$
+- $f(x) = -3x^2 \quad -5 \leq x \leq 5$
+- $f(x) = x^3 - 9x   \quad -4 \leq x \leq 4$
+- $f(x) = sin(x) \quad 0 \leq x \leq \pi$
+- $f(x) = cos(x) \quad 0 \leq x \leq \pi$
+- $f(x) = tan(x) \quad -1.5 \leq x \leq 1.5$
+
+***
+
+<div align="justify">
+
+- Realice el gráfico de la distribución normal para $\mu = 0, \, \sigma=1 \, \sigma=2, \, \sigma = 3$. El plot debe tener la leyenda y la fución en el eje **y** (similar al de la diapositiva 24).
+
+- La función de distribución de **Poisson** se define por:
+$$f(x) = \frac{e^{-\lambda} \lambda^x}{x!}$$
+Donde $\lambda$ es un parámetro positivo que mide el número de veces que ocurre un evento e un intervalo. $x!$ representa el factorial de $x$, es decir, el producto de los números enteros positivos de 1 a $x$. Por ejemplo: si $x = 5$ entonces $x! = 5 \cdot4\cdot3\cdot2\cdot1= 120$. En **R** se puede utilizar la función **factorial()**. Realice un plot para valores de $\lambda=1, \, \lambda = 4,  \, \lambda= 10$ y $x \in \{0, 1, \cdots , 30\}$. No olvidar la leyenda y la función en el eje **y**.
+</div>
+
+***
+
+<div align="justify">
+- La función de distribución **Binomial** se define por: 
+$$f(x) = \frac{n!}{x!(n-x)!}p^x(1-p)^{n-x}$$
+Donde $p$ representa la probabilidad de éxito y $n$ la cantidad de ensayos a realizar. $x!$ es el factorial de $x$. Realice un plot que le permita gráficar esta función para $n = 25$ y $p = 0.3, \, p=0.5, \, p=0.7$. $x$ es una variable entera y vamos a definirla como: $x \in \{0, 1, \cdots, 25 \}$. No olvidar la función en el eje **y** y las leyendas. 
+</div>
+
+## Curvas.
+
+## Polígonos.
+
+
+
+# Estructuras de datos. 
+
+## Vectores
+
+### Indexación de vectores. 
+
+### Indexaciones lógicas de vectores. 
+
+### Estimar $\pi$
+
+## Matrices
+<div align="justify">
+Las matrices son un caso particular de arreglos con dos atributos definidos: el número de columnas y el número de filas. Estas estructuras de datos se pueden crear con la función **_matrix()_**. 
+
+```{r, echo = TRUE, eval=TRUE}
+mat <- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)
+mat
+```
+Se crea un vector _‘‘c(1, 2, 3, 4)’’_ y luego  se define la cantidad de filas y columnas. 
+
+</div>
+
+***
+
+¿Qué diferencia hay entre mat1 y mat2 del siguiente código?
+
+```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
+mat1 <- matrix(c(100, 200, 300, 400), nrow = 2, ncol = 2)
+
+mat2 <- matrix(c(100, 200, 300, 400), nrow = 2, ncol = 2, 
+               byrow = TRUE)
+```
+
+Diferentes operaciones aritméticas se pueden realizar:
+
+```{r global_options, echo=TRUE, eval=TRUE, collapse=TRUE}
+mat1 <- matrix(c(1, 2, 3, 4), nrow = 2)
+mat2 <- matrix(c(5, 6, 7, 8), nrow = 2)
+mat1 + mat2
+```
+
+***
+```{r}
+mat1 - mat2
+mat1 * mat2
+mat1 / mat2
+```
+
+***
+```{r}
+mat1 %*% mat2 #Producto de matrices
+```
+
+Con los mismos valores de las matrices _mat1_ y _mat2_ realice las siguientes operaciones e interpretelas. 
+
+```{r, echo=TRUE, eval=FALSE}
+mat1 %x% mat2 # Producto Kronecker
+
+mat1 %o% mat2 # Producto exterior. 
+```
+
+***
+
+<div align="justify">
+Solucionar sistemas de ecuaciones lineales es sencillo. Suponga el siguiente sistema. 
+$$\begin{array}
+     1x + 3y = 5 \\ 
+     2x + 4y = 7
+   \end{array}$$
+
+Este  se puede resolver con la función **solve()**. Esta función requiere una matriz con los coeficientes que acompañan las variables y un vector con los términos independientes.
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+mat_coef <- matrix(c(1, 2, 3, 4), nrow = 2)
+vec_b <- c(5, 7)
+mat_coef
+```
+
+</div>
+
+***
+
+Note que la matriz con los coeficientes, que para el ejemplo es $mat\_coef()$, coinciden con el sistema original. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+ solve(mat_coef, vec_b)
+```
+
+```{r, echo=FALSE, eval=TRUE, fig.align='center', out.height='80%', out.width='80%'}
+x <- seq(-1, 3, by = 0.1)
+y <- (5 - x) / 3
+y2 <- (7 - 2 * x) / 4
+plot(x, y, type = "l", lwd = 2, col = "purple")
+lines(x, y2, type = "l", lwd = 2, col = "salmon")
+grid(10, 10)
+abline(h = 1.5, v = 0.5, lty = 2)
+text(x = 0.8, y = 1.6, "(0.5, 1.5)")
+```
+
+
+## Ejercicios
+
+Solucione los siguientes sistemas de ecuaciones. 
+
+<div style="float: left; width: 50%;", align="justify">
+ <ol start = "1">
+   <li>  
+   $$\begin{equation}
+   \begin{array}{r}
+     2x + 3y + 11z + 5w = 2 \\
+     x + y + 5z + 2w = 1 \\
+     2x + y -3z + 2w = -3 \\
+     x + y -3z + 4w = -3
+   \end{array}
+   \end{equation}$$
+   </li>
+ </ol>
+</div>
+
+<div style="float: left; width: 50%; start="2";">
+<ol start="2">
+ <li>
+  $$\begin{equation}
+   \begin{array}{r}
+     2x + 2y -z + w = 4 \\
+     4x + 3y -z + 2w = 7 \\
+     8x + 5y -3z + 4w = 9 \\
+     x + y -3z + 4w = 6
+   \end{array}
+   \end{equation}$$
+   </li>
+</div>
+
+
+***
+
+<div style="float: left; width: 50%;", align="justify">
+ <ol start = "3">
+   <li>  
+   $$\begin{equation}
+   \begin{array}{r}
+     2x + 5y + 4z + w = 20 \\
+     x + 3y + 2z + w = 11 \\
+     2x + 10y +9z + 7w = 40 \\
+     3x + 8y +9z + 2w = 37
+   \end{array}
+   \end{equation}$$
+   </li>
+ </ol>
+</div>
+
+<div style="float: left; width: 50%; start="4";">
+<ol start="4">
+ <li>
+  $$\begin{equation}
+   \begin{array}{r}
+     x + 2y +3z -2w = 6 \\
+     3x + 2y -z + 2w = 4 \\
+     2x - y -2z - 3w = 2 \\
+     2x - 3y +2z + w = 8
+   \end{array}
+   \end{equation}$$
+   </li>
+</div>
+
+## Indexación de matrices
+
+Para acceder a los elementos de las matrices debemos indicar la fila y la columna. Por ejemplo: 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+mat <- matrix(200:299, nrow = 10, ncol = 10)
+
+mat[2, 4] # Elemento en la fila dos columna cuatro.
+
+mat[32] # ¿Por qué nos da el resultado anterior?
+
+mat[, 1] # Todas las filas de la primera columna. 
+
+mat[2, ] # Todas las columnas de la segunda fila
+```
+
+***
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+mat[1:2, 1:3] # Se selecciona de la fila 1 a la 2 columnas 1 y 3
+
+mat[c(1, 10), c(1, 10)] # Se seleccionan las 4 esquinas.
+
+mat[c(3, 7, 9), 4:7] # Filas 3, 7 y 9. Columnas de la 4 a la 7
+```
+## Ejercicios
+
+Mediante indexaciones seleccione los elementos coloreados de la siguiente imagen: 
+
+<div align="center">
+![](~/Documents/Directorios/R/Curso_R/Presentacion/indexacion.png){width=60%, height=60%}
+</div>
+
+***
+
+### Indexaciones lógias
+
+<div align="justify">
+Al igual que con los vectores. Se pueden seleccionar elementos que cumplan con condiciones. 
+
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+mat <- matrix(200:299, nrow = 10, ncol = 10) # Creamos la matriz
+# a)
+mat[1, mat[1, ] > 250] 
+
+# b)
+mat[mat[, 1] < 202 | mat[, 1] > 208 , 1] 
+
+```
+
+En la indexación **a)** seleccionamos de la primera fila, todas las columnas mayores a 250. En la **b)**; se selecciona de la columna 1 los valores mayores a 208 o menores a 202
+</div>
+
+***
+<div align="justify">
+```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
+# c)
+mat[mat[, 1] >= 205 & mat[, 1] <= 208, c(6, 7)]
+
+# d)
+mat[mat[, 5] >= 245 & mat[, 8] <= 276 , ]
+
+```
+En **c)** seleccionamos de la columna 6 y 7 las filas que cumplan con: la columna 1 mayor o igual a 205 y la columna 1 menor o igual a 208. En **d)** Se leccionamos las filas donde la columna 5 es mayor o igual a 245 y la columna 8 menor o igual a 276, todas las columnas. 
+</div>
+
+***
+### Ejercicios
+
+Dada la siguiente matriz:
+
+<div align="center">
+![](~/Documents/Directorios/R/Curso_R/Presentacion/indexacion_logica.png){width=60%, height=60%}
+</div>
+<div align="justify">
+Resuelva los siguientes puntos.
+
+-  Seleccionar todos los datos de la matriz que cumplan con que la columna 3 sea mayor o igual a 10.
+</div>
+
+***
+
+<div align="justify">
+-  Seleccionar todos los valores de la matriz que  cumplan con que la columna 2 sean mayores o iguales a 8 y que la columna 5 sea menor a 15. 
+- Seleccione las filas 1, 2, 4, 5, 7 y 8. 
+- Seleccione todas las filas que cumpla con que la columna 2 sea mayor o igual a 14. 
+- Seleccione los valores que cumplan con que la columna 1 sea menor o igual a 3 o que la columna 6 sea mayor o igual a 16. 
+- Seleccione los valores que cumplan con que la columna 3 sea diferente a 11. 
+- Seleccione los valores que cumplan con que la columna 1 sea igual a 19. 
+</div>
+
+*** 
+### Coeficientes ideterminados. 
+<div align="justify">
+Este método permite ajustar un polinomio a un conjunto de puntos. Dados $N + 1$ pares ordenados de la forma $(x_{i}, y_{i})$, con $i \in 1, 2, 3, \cdots, N+1$ encontrar un polinomio de grado $N$ que pasa por los puntos $(x_{i}, y_{i})$. Es decir un polinomio de la forma: 
+
+$$P_{N}(x) = a_{0} + \sum_{k=1}^{N} a_{k} x ^ k$$
+Para que el polinomio pase por los puntos debe cumplir con: 
+$$y_{i} = \sum_{k=0}^N a_{k}x_{i}^k \quad \forall \, i \in \{1, 2, 3, \cdots, N+1 \}$$
+</div>
+
+***
+
+<div align="justify">
+Para los siguientes conjuntos de puntos encuentre el polinomio y realice el gráfico. 
+
+- $(0, 2), (1,2), (2,0), (3,0)$
+- $(0, 1), (1,2), (3,7)$
+- $(-1, 5), (-0.5, -1), (0, 3), (2, 7), (5, -1)$
+- $(-3, 4), (-1.5, -2), (1, 5), (2.6, 1), (3.7, -2)$
+</div>
+
+## Referencias
+
+
+
