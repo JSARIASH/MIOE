@@ -1,6 +1,6 @@
-# Curso R
+# R
 
-Este repo contendrá el material para el curso de informática 2. 
+Este repo contendrá el material para el curso de **R** de la [Maestría en Investigación Operativa y Estadística](https://industrial.utp.edu.co/maestrias/investigacion-operativa/) de la [Universidad Tecnológica de Pereira](https://www.utp.edu.co/)
 
 
 # Material de interés.
