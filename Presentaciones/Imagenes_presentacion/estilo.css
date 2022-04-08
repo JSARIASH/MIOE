@@ -26,7 +26,7 @@ h3 {
   color: #000066;
 }
 slides > slide.dark {
-  background: #002481 !important;
+  background: #000066 !important;
   border-bottom: 0;
   box-shadow: 0 0 0;
   color:blue;

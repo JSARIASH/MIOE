@@ -1,12 +1,14 @@
 ---
 title: "Fundamentos de programación y análisis de datos en R"
-subtitle: Una introducción no tan breve
 author: "Juan Sebastián Arias Hernández"
-institute: Universidad Tecnológica de Pereira
+subtitle: Una introducción no tan breve
 output:
   ioslides_presentation:
-     logo: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/Rlogo.png
-     css:  ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/estilo.css
+    logo: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/Rlogo.png
+    css: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/estilo.css
+  slidy_presentation: default
+  beamer_presentation: default
+institute: Universidad Tecnológica de Pereira
 bibliography: presentacion.bib
 ---
 
@@ -28,7 +30,7 @@ La filosofía de *_R_*, [@RDataSience], consiste en crear un entorno que permita
 
 ## ¿Por qué utilizar R? {#future-steps .emphasized}
 <p align="justify">
-**R**  Es libre. Lo que implica que no hay que pagar por instalarlo, actualizarlo o compartilo. Además de lo anterior, algunos beneficios que valen la pena resaltar son:
+**R**  es libre. Lo que implica que no hay que pagar por instalarlo, actualizarlo o compartilo. Además de lo anterior, algunos beneficios que valen la pena resaltar son:
 </p>
 
 <div align="justify">
@@ -46,45 +48,58 @@ La filosofía de *_R_*, [@RDataSience], consiste en crear un entorno que permita
 -  Los usuarios de *R* no son generalmente programadores, por esta razón muchas de las rutinas están enfocadas a los resultados y no a desarrollar un código claro y rápido.
 </div>
 
+## Ejemplos
+
 # Manos a la obra
 
 ## Objetos 
-<p align="justify">
-En *R* existen 5 objetos principales: 
-</p>
-- Numeric (números reales).
-- Enteros.
-- Complejos.
+<div align="justify">
+En *R* existen 5 objetos principales:
+
 - Lógicos.
+- Enteros.
+- Numeric (números reales).
+- Complejos.
 - Caracteres.
 
-Adicionalmente *R* posee algunas variables de uso común:
+Estos objetos son la base del programa. Se pueden operar y agrupar para crear estructuras de datos y rutinas cada vez más complejas. 
+</div>
 
-- <p align="justify"> **NaN** (Not a Number). Indica que se están realizando operaciones incorrectas. </p>
-
-- <p align="justify"> **NA** Not Available. Es lo que en estadística se conoce comúnmente como faltantes. 
-</p>
-
-*** 
-- <p align="justify"> **Inf** Representa el infinito. </p>
-- <p align="justify"> **NULL** Se utiliza para representar un lista de longitud cero. </p>
-
-***Ejemplos*** 
+***
 <div align="justify">
 En la consola escribir y luego dar _Enter_ a cada una de las siguientes líneas.
-  
-```{r, highlight=TRUE, collapse=TRUE, eval=FALSE}
+
+
+```{r, highlight=TRUE, collapse=TRUE, eval=TRUE}
       TRUE  # Este objeto es lógico
+      FALSE
       10L # Se crea el diez como un entero
       3.1415 # Este es un objeto de tipo double
       5 + 2i # Número complejo
       "hola mundo" # Es un carácter
-      5 / Inf # El resultado debe ser cero.
-      Inf / Inf # El resultado es un NaN
-      NA # Representa un valor faltante
+```
+
+**_Nota_** En la consola interactuamos con R; ingresamos comandos y nos devuelve respuestas.
+
+</div>
+
+***
+<div align="justify">
+Adicionalmente, *R* posee algunas variables de uso común:
+
+-  **NaN** (Not a Number). Indica que se están realizando operaciones incorrectas. 
+-  **NA** Not Available. Es lo que en estadística se conoce comúnmente como faltantes. 
+-  **Inf** Representa el infinito. 
+-  **NULL** Se utiliza para representar un lista de longitud cero.
+
+```{r, highlight=TRUE, eval=TRUE, collapse=TRUE}
+0/0
+1000 / Inf
+Inf / Inf
 ```
 
 </div>
+
 
 ## Operadores
 <p align="justify">
@@ -108,6 +123,49 @@ Los operadores son símbolos que indican que "operación" debe llevarse a cabo.
 </div>
 
 ***
+
+<div class="columns-2">
+Conjunción lógica Y
+```{r, collapse=TRUE, highlight=TRUE, eval=TRUE}
+ TRUE & TRUE
+ TRUE & FALSE
+ FALSE & TRUE
+ FALSE & FALSE
+```
+
+Conjunción lógica O
+```{r, collapse=TRUE, highlight=TRUE, eval=TRUE}
+ TRUE | TRUE
+ TRUE | FALSE
+ FALSE | TRUE
+ FALSE | FALSE
+```
+</div>
+
+```{r, collapse=TRUE, highlight=TRUE, eval=TRUE}
+!TRUE
+!FALSE
+!(TRUE & FALSE)
+```
+
+***
+
+<div align="justify">
+Para cada uno de los siguientes ejercicios determine la respuesta de antemano, luego compruebe en _R_ el resultado.
+
+- $\small{TRUE \, \&  \, FALSE \, | \, FALSE}$ 
+
+- $\small{FALSE \,|\, FALSE \,|\, TRUE}$
+
+- $\small{TRUE \,  \& \, TRUE \, \& \, !FALSE}$
+
+- $\small{(TRUE \, | \, FALSE) \, \& \, (FALSE \, \&  \, FALSE)}$
+
+- $\small{!(TRUE \, \& \,  !(FALSE \,| \,FALSE))}$
+</div>
+
+***
+
 ### Operadores relacionales
 <p align="center">
  Operador | Símbolo
@@ -121,7 +179,37 @@ Los operadores son símbolos que indican que "operación" debe llevarse a cabo.
 </p>
 
 ***
-### Operadores aritméticos.
+
+Veamos algunos ejemplos: 
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+2 < 10
+2 > 8
+TRUE == FALSE
+TRUE == 1
+FALSE == 0
+2 > 0 & 4 < 5
+3 > 6 | 4 < 5
+!(3 > 6 | 4 < 5)
+```
+***
+
+<div align="justify">
+Determine de antemano la respuesta de cada uno de los siguientes ejercicios,  luego compruebe el resultado  en _R_. 
+
+- $\small{!(2 == 2 \, \& \, 3 >= 2)}$
+
+- $\small{!(2 > 3 \, | -10 > 0)}$
+
+- $\small{49/49 == 1}$
+
+- $\small{0.1 == .3/3}$
+
+- $\small{0.3 - 0.1 == 0.2}$
+
+</div>
+***
+### Operadores aritméticos
 
 <div class="columns-2">
    Operador | Símbolo | 
@@ -143,6 +231,7 @@ Los operadores son símbolos que indican que "operación" debe llevarse a cabo.
 </div>
 
 ***
+
 ### Operadores de asignación
 <p align="center">
   Operador | Descripción
@@ -182,6 +271,19 @@ Las ***Precedencias*** indican el orden en que se ejecutan las operaciones aritm
   </ol>
 </div>
 
+***
+### Ejercicios
+<div align="justify">
+Evalúe las siguientes expresiones en _R_.
+
+ - $\small{5 + 2 ^ 3 - 4 \cdot 8/2}$
+ - $\frac{1}{\frac{1}{21} + \frac{1}{25} + \frac{1}{18} + \frac{1}{30}}$
+ - $\small{9+1.796 \cdot \sqrt{0.291 \cdot (\frac{1}{14}+\frac{1}{11})}}$
+ - $\small{\frac{9 \cdot \frac{23-\pi^3}{4} + 2^4}{3}}$
+ - $\small{f_{(x)} = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} \\  \mu = 3.5 \; y \; \sigma = 2.6 \rightarrow f_{(3)}, f_{(2.98)}}$
+</div>
+
+Realizar el siguiente ejercicio: [Hit the Lottery](https://codeforces.com/problemset/problem/996/A)
 
 # Funciones
 
@@ -198,19 +300,18 @@ Las funciones son una clase particular de objetos. A estos objetos generalmente 
 </p>
 Algunas funciones de uso común.
 
-- **_c()_**: Permite combinar los argumentos para crear vectores. **Importante:** es una _c_ minúscula.
-
- - **_getwd()_**: Permite identificar el directorio de trabajo. Esta es la carpta donde *R* va a busacar los archivos, datos y programas por defecto. 
+- **_getwd()_**: Permite identificar el directorio de trabajo. Esta es la carpta donde *R* busca y guarda los archivos, datos y programas por defecto.
+ 
+- **_setwd()_**: Esta función se utiliza para cambiar el directorio de trabajo.
+ 
 
 
 </div>
 
 ***
- - **_setwd()_**: Esta función se utiliza para cambiar el directorio de trabajo.
-
  - **_help()_**: Accedemos a la documentación. 
 
- - **_example()_**: Imprime ejemplos de las funciones.
+ - **_example()_**: Imprime en la consola algunos ejemplos.
 
 
 ```{r, highlight=TRUE, collapse=TRUE, eval=TRUE}
@@ -241,6 +342,7 @@ Con las funciones _example()_ y _help()_ estudie los siguientes comandos:
  <li> floor() </li>
  <li> ceiling() </li>
 </div>
+dnorm, pnorm, qnorm, rnorm. 
 
 ## Gráficos en dos dimensiones.
  
@@ -252,6 +354,7 @@ plot(1, 1)
 Esta función tiene una gran cantidad de parámetros. Recuerden que podemos acceder a la documentación con la función **help()**
 
 ***
+
 ### Grafiquemos una parábola.
 ```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
 x <- seq(-10, 10, by = 0.5)
@@ -333,31 +436,6 @@ legend(x = 5, y = 0.4, legend = c(expression(mu==-2),expression(mu == 0), expres
        fill = c("purple", "blue", "salmon"))
 ```
 
-***
-Un poco de ayuda para que nos rinda. 
-
-```{r,echo=TRUE,eval=FALSE}
-# Primera: mu = 0
-sigma <- 1
-mu <- 0
-x <- seq(-10, 10, by = 0.1)
-y <- 1 / (sigma * sqrt(2 * pi)) * exp(- (x - mu) ^ 2 /(2 * sigma ^2))
-plot(x, y, type = "l", lwd = 2, lty = 1, col = "darkblue")
-
-# Segunda: mu = 2
-mu <- 2
-y <- 1 / (sigma * sqrt(2 * pi)) * exp(- (x - mu) ^ 2 /(2 * sigma ^2))
-lines(x, y, type = "l", lwd = 2, lty = 1, 
-      col = "salmon",  xlab = "Dominio")
-
-# Tercera: mu = -2
-mu <- -2
-y <- 1 / (sigma * sqrt(2 * pi)) * exp(- (x - mu) ^ 2 /(2 * sigma ^2))
-lines(x, y, type = "l", lwd = 2, lty = 1, 
-      col = "purple",  xlab = "Dominio")
-```
-
-
 ## Ejercicios
 Realice las gráficas de las siguientes funciones y en el eje **y** escriba la relación matemática. 
 
@@ -374,7 +452,7 @@ Realice las gráficas de las siguientes funciones y en el eje **y** escriba la r
 
 <div align="justify">
 
-- Realice el gráfico de la distribución normal para $\mu = 0, \, \sigma=1 \, \sigma=2, \, \sigma = 3$. El plot debe tener la leyenda y la fución en el eje **y** (similar al de la diapositiva 24).
+- Realice el gráfico de la distribución normal para $\mu = 0, \, \sigma=1 \, \sigma=2, \, \sigma = 3$. El plot debe tener la leyenda y la fución en el eje **y** (similar al de la diapositiva 31).
 
 - La función de distribución de **Poisson** se define por:
 $$f(x) = \frac{e^{-\lambda} \lambda^x}{x!}$$
@@ -389,290 +467,193 @@ $$f(x) = \frac{n!}{x!(n-x)!}p^x(1-p)^{n-x}$$
 Donde $p$ representa la probabilidad de éxito y $n$ la cantidad de ensayos a realizar. $x!$ es el factorial de $x$. Realice un plot que le permita gráficar esta función para $n = 25$ y $p = 0.3, \, p=0.5, \, p=0.7$. $x$ es una variable entera y vamos a definirla como: $x \in \{0, 1, \cdots, 25 \}$. No olvidar la función en el eje **y** y las leyendas. 
 </div>
 
-## Curvas.
-
 ## Polígonos.
 
+```{r, eval=TRUE, collapse=TRUE, fig.align='center', fig.dim=c(5, 4)}
 
+x <- seq(-5, 5, 0.1); y <- dnorm(x, 0, 1)
+plot(x, y, type = "l")
+x_pol <- c(-5, -2, seq(-2, -5, -0.1))
+y_pol <- c(0, 0, dnorm(seq(-2, -5, -0.1), 0, 1))
+polygon(x_pol, y_pol, col = "red", border = "blue")
+```
 
-# Estructuras de datos. 
+# Estructuras de datos
 
 ## Vectores
+<div align="justify">
+Los vectores en _R_ son la estructura de datos básica. Se caracteriza porque todos los objetos deben ser del mismo tipo: lógicos, enteros, númericos, complejos o texto. 
+
+```{r, eval=TRUE, collapse=TRUE, highlight=TRUE}
+ c(1, c(10, 20, 10), 5)
+ 1:10
+ seq(-2, -10, -1)
+ rep(c(10, 20), times = 3)
+ rep(c(10, 20), each = 3)
+ rep(c(1, 3, 5), c(5, 2, 4))
+ 
+```
+</div>
+
+***
+
+<div align="justify">
+Si se mezclan diferentes objetos en un mismo vector, _R_ los convierte a un mismo tipo. 
+
+```{r, eval=TRUE, collapse=TRUE, highlight=TRUE}
+c(TRUE, FALSE, "hola") # Todos texto
+c(TRUE, FALSE, 3L) # Todos enteros
+c(5L, 4L, 2.5) # Todos double
+c(5, 5+2i) # Todos complejos. 
+
+```
+</div>
+
+_**Ejercicio:**_ Determine la jerarquía que utiliza _R_ para convertir los objetos diferentes contenidos en un mismo vector. 
+
+_Sujerencia:_ Cree un vector con todos los objetos y observe el resultado. 
+
+***
 
 ### Indexación de vectores. 
+<div align="justify">
+La indexación es la forma como podemos acceder a los elementos de un vector. Para ello se utlizan los corchetes, **[]**, y la posición del elemento a seleccionar.  
 
-### Indexaciones lógicas de vectores. 
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+x <- c(2, 3, 7, 11, 13, 17, 19, 23, 27)
+
+x[1] # Accedo al elemento en la posición 1. 
+
+x[9] # Accedo al elemento en la posición 9
+
+x[3:6] # Accedemos a los del 3 al 6.
+
+x[c(1, 4, 6, 9)] # Accedemos a los elementos 1, 4, 6 y  9.
+```
+</div>
+
+***
+
+### Indexaciones lógicas de vectores
+
+En este tipo de indexaciones los elementos son seleccionados si cumplen una condición. 
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+x <- c(-10, -5, 8, 12, 21, -17, 9)
+
+x > 0 # Es TRUE donde los números son positivos. 
+
+x[x>0] # Seleccinamos las posiciones donde ocurre el verdadero. 
+
+x[x > 0 & x < 12] # Valores mayores a 0 y menores a 12. 
+
+x[x < -5 | x > 12] # Valores menores a -5 y mayores a 12. 
+```
+***
 
 ### Estimar $\pi$
 
-## Matrices
+
+## Data frames.
 <div align="justify">
-Las matrices son un caso particular de arreglos con dos atributos definidos: el número de columnas y el número de filas. Estas estructuras de datos se pueden crear con la función **_matrix()_**. 
+Esta estructura permite almacenar la información de forma tabular. Cada columna debe ser del mismo tipo ya que representa una misma variable. 
 
-```{r, echo = TRUE, eval=TRUE}
-mat <- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2)
-mat
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+set.seed(2)
+datos <- data.frame(
+  Inicial = letters[1:10], altura = rnorm(10, 160, 20), 
+  peso = rnorm(10, 60, 10), sexo = rbinom(10, 1, 0.5)
+  )
+head(datos)
 ```
-Se crea un vector _‘‘c(1, 2, 3, 4)’’_ y luego  se define la cantidad de filas y columnas. 
-
 </div>
 
 ***
 
-¿Qué diferencia hay entre mat1 y mat2 del siguiente código?
+### Indexación de data frames. 
 
-```{r, echo=TRUE, eval=FALSE, collapse=TRUE}
-mat1 <- matrix(c(100, 200, 300, 400), nrow = 2, ncol = 2)
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+datos$Inicial
 
-mat2 <- matrix(c(100, 200, 300, 400), nrow = 2, ncol = 2, 
-               byrow = TRUE)
-```
+datos[, 1]
 
-Diferentes operaciones aritméticas se pueden realizar:
+datos[2, ]
 
-```{r global_options, echo=TRUE, eval=TRUE, collapse=TRUE}
-mat1 <- matrix(c(1, 2, 3, 4), nrow = 2)
-mat2 <- matrix(c(5, 6, 7, 8), nrow = 2)
-mat1 + mat2
-```
+datos[3:6, ]
 
-***
-```{r}
-mat1 - mat2
-mat1 * mat2
-mat1 / mat2
-```
-
-***
-```{r}
-mat1 %*% mat2 #Producto de matrices
-```
-
-Con los mismos valores de las matrices _mat1_ y _mat2_ realice las siguientes operaciones e interpretelas. 
-
-```{r, echo=TRUE, eval=FALSE}
-mat1 %x% mat2 # Producto Kronecker
-
-mat1 %o% mat2 # Producto exterior. 
 ```
 
 ***
 
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+datos[c(2, 5, 9), ]
+
+datos[c(2, 5, 9), 2:3]
+
+datos[c(2, 5, 9), c("Inicial", "sexo")]
+```
+
+***
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+datos[1:5, c("Inicial", "sexo")]
+
+datos$Inicial
+
+datos$sexo
+
+datos$sexo[1:5]
+
+datos$altura[c(1, 5, 10)]
+
+```
+
+***
+### Indexación lógica con data frames
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+datos[datos$peso >= 68, ]
+
+datos[datos$sexo == 1, ]
+
+```
+***
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+datos[datos$sexo == 1 & datos$altura <= 170, ]
+
+datos[datos$sexo == 0 & datos$altura > 170, 2:3]
+
+datos[datos$altura <= 165 & datos$peso >= 53, c("altura", "peso")]
+
+```
+
+## Ingresar datos
 <div align="justify">
-Solucionar sistemas de ecuaciones lineales es sencillo. Suponga el siguiente sistema. 
-$$\begin{array}
-     1x + 3y = 5 \\ 
-     2x + 4y = 7
-   \end{array}$$
+Leer información es una de las actividades que más se realizan durante el análisis de datos. Esta información puede venir en diferentes formatos como:
 
-Este  se puede resolver con la función **solve()**. Esta función requiere una matriz con los coeficientes que acompañan las variables y un vector con los términos independientes.
+ - Archivos separados por comas (.csv).
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-mat_coef <- matrix(c(1, 2, 3, 4), nrow = 2)
-vec_b <- c(5, 7)
-mat_coef
-```
+ - Libros de Excel (.xlsx, .xlx).
 
-</div>
+ - Se puede leer información de una página web. 
 
-***
+ - Archivos binarios 
 
-Note que la matriz con los coeficientes, que para el ejemplo es $mat\_coef()$, coinciden con el sistema original. 
+ - Imágenes, audios y vídeos. 
 
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
- solve(mat_coef, vec_b)
-```
-
-```{r, echo=FALSE, eval=TRUE, fig.align='center', out.height='80%', out.width='80%'}
-x <- seq(-1, 3, by = 0.1)
-y <- (5 - x) / 3
-y2 <- (7 - 2 * x) / 4
-plot(x, y, type = "l", lwd = 2, col = "purple")
-lines(x, y2, type = "l", lwd = 2, col = "salmon")
-grid(10, 10)
-abline(h = 1.5, v = 0.5, lty = 2)
-text(x = 0.8, y = 1.6, "(0.5, 1.5)")
-```
-
-
-## Ejercicios
-
-Solucione los siguientes sistemas de ecuaciones. 
-
-<div style="float: left; width: 50%;", align="justify">
- <ol start = "1">
-   <li>  
-   $$\begin{equation}
-   \begin{array}{r}
-     2x + 3y + 11z + 5w = 2 \\
-     x + y + 5z + 2w = 1 \\
-     2x + y -3z + 2w = -3 \\
-     x + y -3z + 4w = -3
-   \end{array}
-   \end{equation}$$
-   </li>
- </ol>
-</div>
-
-<div style="float: left; width: 50%; start="2";">
-<ol start="2">
- <li>
-  $$\begin{equation}
-   \begin{array}{r}
-     2x + 2y -z + w = 4 \\
-     4x + 3y -z + 2w = 7 \\
-     8x + 5y -3z + 4w = 9 \\
-     x + y -3z + 4w = 6
-   \end{array}
-   \end{equation}$$
-   </li>
-</div>
-
-
-***
-
-<div style="float: left; width: 50%;", align="justify">
- <ol start = "3">
-   <li>  
-   $$\begin{equation}
-   \begin{array}{r}
-     2x + 5y + 4z + w = 20 \\
-     x + 3y + 2z + w = 11 \\
-     2x + 10y +9z + 7w = 40 \\
-     3x + 8y +9z + 2w = 37
-   \end{array}
-   \end{equation}$$
-   </li>
- </ol>
-</div>
-
-<div style="float: left; width: 50%; start="4";">
-<ol start="4">
- <li>
-  $$\begin{equation}
-   \begin{array}{r}
-     x + 2y +3z -2w = 6 \\
-     3x + 2y -z + 2w = 4 \\
-     2x - y -2z - 3w = 2 \\
-     2x - 3y +2z + w = 8
-   \end{array}
-   \end{equation}$$
-   </li>
-</div>
-
-## Indexación de matrices
-
-Para acceder a los elementos de las matrices debemos indicar la fila y la columna. Por ejemplo: 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-mat <- matrix(200:299, nrow = 10, ncol = 10)
-
-mat[2, 4] # Elemento en la fila dos columna cuatro.
-
-mat[32] # ¿Por qué nos da el resultado anterior?
-
-mat[, 1] # Todas las filas de la primera columna. 
-
-mat[2, ] # Todas las columnas de la segunda fila
-```
-
-***
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-mat[1:2, 1:3] # Se selecciona de la fila 1 a la 2 columnas 1 y 3
-
-mat[c(1, 10), c(1, 10)] # Se seleccionan las 4 esquinas.
-
-mat[c(3, 7, 9), 4:7] # Filas 3, 7 y 9. Columnas de la 4 a la 7
-```
-## Ejercicios
-
-Mediante indexaciones seleccione los elementos coloreados de la siguiente imagen: 
-
-<div align="center">
-![](~/Documents/Directorios/R/Curso_R/Presentacion/indexacion.png){width=60%, height=60%}
-</div>
-
-***
-
-### Indexaciones lógias
-
-<div align="justify">
-Al igual que con los vectores. Se pueden seleccionar elementos que cumplan con condiciones. 
-
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-mat <- matrix(200:299, nrow = 10, ncol = 10) # Creamos la matriz
-# a)
-mat[1, mat[1, ] > 250] 
-
-# b)
-mat[mat[, 1] < 202 | mat[, 1] > 208 , 1] 
-
-```
-
-En la indexación **a)** seleccionamos de la primera fila, todas las columnas mayores a 250. En la **b)**; se selecciona de la columna 1 los valores mayores a 208 o menores a 202
-</div>
-
-***
-<div align="justify">
-```{r, echo=TRUE, eval=TRUE, collapse=TRUE}
-# c)
-mat[mat[, 1] >= 205 & mat[, 1] <= 208, c(6, 7)]
-
-# d)
-mat[mat[, 5] >= 245 & mat[, 8] <= 276 , ]
-
-```
-En **c)** seleccionamos de la columna 6 y 7 las filas que cumplan con: la columna 1 mayor o igual a 205 y la columna 1 menor o igual a 208. En **d)** Se leccionamos las filas donde la columna 5 es mayor o igual a 245 y la columna 8 menor o igual a 276, todas las columnas. 
-</div>
-
-***
-### Ejercicios
-
-Dada la siguiente matriz:
-
-<div align="center">
-![](~/Documents/Directorios/R/Curso_R/Presentacion/indexacion_logica.png){width=60%, height=60%}
-</div>
-<div align="justify">
-Resuelva los siguientes puntos.
-
--  Seleccionar todos los datos de la matriz que cumplan con que la columna 3 sea mayor o igual a 10.
+En general hay una gran cantidad de formatos. 
 </div>
 
 ***
 
 <div align="justify">
--  Seleccionar todos los valores de la matriz que  cumplan con que la columna 2 sean mayores o iguales a 8 y que la columna 5 sea menor a 15. 
-- Seleccione las filas 1, 2, 4, 5, 7 y 8. 
-- Seleccione todas las filas que cumpla con que la columna 2 sea mayor o igual a 14. 
-- Seleccione los valores que cumplan con que la columna 1 sea menor o igual a 3 o que la columna 6 sea mayor o igual a 16. 
-- Seleccione los valores que cumplan con que la columna 3 sea diferente a 11. 
-- Seleccione los valores que cumplan con que la columna 1 sea igual a 19. 
-</div>
 
-*** 
-### Coeficientes ideterminados. 
-<div align="justify">
-Este método permite ajustar un polinomio a un conjunto de puntos. Dados $N + 1$ pares ordenados de la forma $(x_{i}, y_{i})$, con $i \in 1, 2, 3, \cdots, N+1$ encontrar un polinomio de grado $N$ que pasa por los puntos $(x_{i}, y_{i})$. Es decir un polinomio de la forma: 
-
-$$P_{N}(x) = a_{0} + \sum_{k=1}^{N} a_{k} x ^ k$$
-Para que el polinomio pase por los puntos debe cumplir con: 
-$$y_{i} = \sum_{k=0}^N a_{k}x_{i}^k \quad \forall \, i \in \{1, 2, 3, \cdots, N+1 \}$$
-</div>
-
-***
-
-<div align="justify">
-Para los siguientes conjuntos de puntos encuentre el polinomio y realice el gráfico. 
-
-- $(0, 2), (1,2), (2,0), (3,0)$
-- $(0, 1), (1,2), (3,7)$
-- $(-1, 5), (-0.5, -1), (0, 3), (2, 7), (5, -1)$
-- $(-3, 4), (-1.5, -2), (1, 5), (2.6, 1), (3.7, -2)$
+Inicialmente vamos a leer los datos con la función _read.csv()_
 </div>
 
 ## Referencias
+
+
+
 
 
 
