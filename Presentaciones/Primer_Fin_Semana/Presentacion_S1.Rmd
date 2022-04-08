@@ -644,10 +644,41 @@ En general hay una gran cantidad de formatos.
 </div>
 
 ***
+<div align="justify">
+Inicialmente vamos a leer los datos con la función _read.csv()_. Vamos a leer el archivo _cities.csv_ que se encuentra en la carpeta: _‘‘Datos/Fin_Semana_1/varios’’_ del repositorio. 
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+ciudades <- read.csv("../Datos/Fin_Semana_1/varios/cities.csv")
+head(ciudades[1:5], 10)
+```
+</div>
+
+***
+<div align="justify">
+Luego de leer los datos realizar las siguientes actividades. 
+
+- Realizar un gráfico de dispersión de longitud vs latitud. 
+
+- En el gráfico anterior mostrar las ciudades con más de un millón de habitantes.
+
+- Realizar un gráfico únicamente con las ciudades Colombinas. 
+
+- Realizar un gráfico con las ciudades de los siguientes países: Estados Unidos, Canadá, México, Colombia, Venezuela, Ecuador, Perú, Bolivia, Chile, Brasil, Argentina, Uruguay, Paraguay, Surinam y Trinidad y Tobago. 
+
+- Realizar un histograma con la variable población. 
+
+- Realizar un boxplot con la variable población. 
+
+</div>
+
+***
 
 <div align="justify">
+- Leer el archivo: _cumple.csv_ y probar la paradoja del cumpleaños. 
 
-Inicialmente vamos a leer los datos con la función _read.csv()_
+- Leer el archivo: _datos_fumadores.csv_ y realizar los siguientes gráficos: Un boxplot de edad vs Fumador, Presión vs Fumador y Riesgo vs Fumador.
+
+- Realizar una prueba t-estudent para determinar si el fumar impacta el riesgo, presión y la edad. 
 </div>
 
 ## Referencias

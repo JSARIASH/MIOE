@@ -215,7 +215,7 @@ La filosofía de <em><em>R</em></em>, <span class="cite">(Peng 2015)</span>, con
 
 </p>
 
-</article></slide><slide class=""><hgroup><h2>¿Por qué utilizar R?</h2></hgroup><article  class="emphasized" id="future-steps">
+</article></slide><slide class=""><hgroup><h2>¿Por qué utilizar R?</h2></hgroup><article  id="future-steps" class="emphasized">
 
 <p align="justify">
 
@@ -1031,15 +1031,52 @@ datos[datos$altura &lt;= 165 &amp; datos$peso &gt;= 53, c(&quot;altura&quot;, &q
 </article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
 <div align="justify">
-<p>Inicialmente vamos a leer los datos con la función <em>read.csv()</em></p></div>
+<p>Inicialmente vamos a leer los datos con la función <em>read.csv()</em>. Vamos a leer el archivo <em>cities.csv</em> que se encuentra en la carpeta: <em>&lsquo;‘Datos/Fin_Semana_1/varios&rsquo;’</em> del repositorio.</p>
 
-</article></slide><slide class=""><hgroup><h2>Referencias</h2></hgroup><article  class="unnumbered" id="referencias">
+<pre class = 'prettyprint lang-r'>ciudades &lt;- read.csv(&quot;../Datos/Fin_Semana_1/varios/cities.csv&quot;)
+head(ciudades[1:5], 10)
+##              city     city_ascii     lat     lng    pop
+## 1   Qal eh-ye Now      Qal eh-ye 34.9830 63.1333   2997
+## 2     Chaghcharan    Chaghcharan 34.5167 65.2500  15000
+## 3     Lashkar Gah    Lashkar Gah 31.5830 64.3600 201546
+## 4          Zaranj         Zaranj 31.1120 61.8870  49851
+## 5      Tarin Kowt     Tarin Kowt 32.6333 65.8667  10000
+## 6    Zareh Sharan   Zareh Sharan 32.8500 68.4167  13737
+## 7        Asadabad       Asadabad 34.8660 71.1500  48400
+## 8         Taloqan        Taloqan 36.7300 69.5400  64256
+## 9  Mahmud-E Eraqi Mahmud-E Eraqi 35.0167 69.3333   7407
+## 10     Mehtar Lam     Mehtar Lam 34.6500 70.1667  17345</pre></div>
 
-<div class="references csl-bib-body hanging-indent" id="refs">
-<div class="csl-entry" id="ref-RDataSience">
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
+
+<div align="justify">
+<p>Luego de leer los datos realizar las siguientes actividades.</p>
+
+<ul>
+<li><p>Realizar un gráfico de dispersión de longitud vs latitud.</p></li>
+<li><p>En el gráfico anterior mostrar las ciudades con más de un millón de habitantes.</p></li>
+<li><p>Realizar un gráfico únicamente con las ciudades Colombinas.</p></li>
+<li><p>Realizar un gráfico con las ciudades de los siguientes países: Estados Unidos, Canadá, México, Colombia, Venezuela, Ecuador, Perú, Bolivia, Chile, Brasil, Argentina, Uruguay, Paraguay, Surinam y Trinidad y Tobago.</p></li>
+<li><p>Realizar un histograma con la variable población.</p></li>
+<li><p>Realizar un boxplot con la variable población.</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
+
+<div align="justify">
+<ul>
+<li><p>Leer el archivo: <em>cumple.csv</em> y probar la paradoja del cumpleaños.</p></li>
+<li><p>Leer el archivo: <em>datos_fumadores.csv</em> y realizar los siguientes gráficos: Un boxplot de edad vs Fumador, Presión vs Fumador y Riesgo vs Fumador.</p></li>
+<li><p>Realizar una prueba t-estudent para determinar si el fumar impacta el riesgo, presión y la edad.</p></li>
+</ul></div>
+
+</article></slide><slide class=""><hgroup><h2>Referencias</h2></hgroup><article  id="referencias" class="unnumbered">
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-RDataSience" class="csl-entry">
 <p>Peng, Roger. 2015. <em>R Programming for Data Science</em>.</p></div>
 
-<div class="csl-entry" id="ref-r-projec">
+<div id="ref-r-projec" class="csl-entry">
 <p>R Project. <span>
 “The r Project for Statistical Computing.”</span> <span>
 https://www.r-project.org/</span>.</p></div></div></article></slide>
