@@ -5,18 +5,19 @@ Este repo contendrá el material para el curso de informática 2.
 
 # Material de interés.
 
-## Libros recomendados: 
-R inferno
+## Libros recomendados
 
-Advance R
+[R inferno](https://www.burns-stat.com/documents/books/the-r-inferno/)
 
-ggplot2
+[Advance R - versión web](https://adv-r.hadley.nz/index.html)
 
-The art of R programing
+[ggplot2v- Versión web](https://ggplot2-book.org/)
 
-R programing for data Science
+[The art of R programing](https://nostarch.com/artofr.htm)
 
-R for data Science
+[R programing for data Science](https://bookdown.org/rdpeng/rprogdatascience/)
+
+[R for data Science](https://r4ds.had.co.nz/)
 
 
 ## Motores de búsqueda
