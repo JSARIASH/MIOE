@@ -11,7 +11,7 @@ Este repo contendrá el material para el curso de **R** de la [Maestría en Inve
 
 [Advance R - versión web](https://adv-r.hadley.nz/index.html)
 
-[ggplot2v- Versión web](https://ggplot2-book.org/)
+[ggplot2- Versión web](https://ggplot2-book.org/)
 
 [The art of R programing](https://nostarch.com/artofr.htm)
 
@@ -42,7 +42,6 @@ Este repo contendrá el material para el curso de **R** de la [Maestría en Inve
 [Otras](https://www.rstudio.com/resources/cheatsheets/)
 
 # Descargar datos de github.
-
 
 [Primera opción](https://download-directory.github.io/)
 
