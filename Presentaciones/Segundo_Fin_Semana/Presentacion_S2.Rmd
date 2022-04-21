@@ -551,6 +551,7 @@ Se puede realizar el gráfico directamente.
 
 
 ## Ejercicio datos irradiación
+También lo tomamos del curos de estocástica. 
 
 ## _PCA en R_
 
@@ -943,10 +944,64 @@ while ((b - a) > 0.00000001){
 <br>
 El resultado para la tir no periódica es `r pm`. **_El ejemplo tomado de la ayuda de Excel_**
 
-## Simulación. 
-
+## Simulación Montecarlo
 <div align="justify">
 
+El objetivo de esta técnica es aproximar una solución a un problema cuantitativo que abordarlo de forma análitica puede no ser muy práctico. Esto se logra a través de un muestreo estadístico.
+
+Por ejemplo: 
+
+ - Mediante simulación calcule la probabilidad de que al menos dos personas de 38 cumplan años el mismo día. Para ello lea el archivo que se encuentra en *cumple.csv* y tome muestras de manera aleatoria de tamaño 38 y calcule la probabildiad. 
+</div>
+
+
+## Los siguientes ejercicios fueron tomados del curso de *Optimización estocástica* del programa doctorado en ingeniería dictado por el profesor John Fredy Franco Baquero el año 2022
+
+***
+<div align="justify">
+- Una recepcionista recibió $N=10$ sombreros y decidió devolverlod de cualquier forma. Ecuentre la probababilidad de que ningún sombrero sea entregado a su dueño mediante simulación Montecarlo. 
+
+ - Usar simulación Monte Carlo para estimar la media de lanzamientos necesarios de seis dados, para que cada dado presente por lo menos una vez el valor de 6. 
+ 
+ - Estimar la distancia media entre dos puntos en un cuadrado de lado 1 usando simulaciones Montecarlo. 
+</div>
+
+***
+<div align="justify">
+Una turbina eólica genera potencia eléctrica $P$ en función de la velocidad del viento $v$. Según las figuras: 
+
+```{r, eval = TRUE, echo=FALSE, fig.align='center', fig.width=8, fig.height=4}
+par(mfrow = c(1, 2))
+x <- c(0, 4, 15, 20)
+y <- c(0, 0, 300, 300)
+plot(x, y, type = "l", xaxs = "i", yaxs = "i", lwd = 2, ylim = c(-20, 320),
+     col ="navy", xaxp = c(0, 20, 20), main = "Potencia vs Velocidad",
+     ylab = "kw", xlab = "m/s")
+       
+lines(x = c(15, 15, 0), y = c(0, 300, 300), lty = 4)
+grid(20, NULL)
+
+curve(dweibull(x, shape = 2, scale = 8), 0, 24, col = "navy", lwd = 2, 
+      main = "Velocidad", xlab = "m/s", ylab = "", xaxs = "i", yaxs = "i",
+      xaxp = c(0, 24, 24))
+grid(24, NULL)
+
+```
+Utilizar simulación montecarlo para determinar el valore esperado de la potencia si la velocidad sigue una distribución *Weibull*
+</div>
+
+***
+<div align="justify">
+La función de distribución de *Weibull* esta dada por:
+
+$$f(v) = \left\{\begin{array}{ll}
+ \frac{k}{\lambda}(\frac{v}{\lambda})^{k-1} e^{-(\frac{v}{\lambda})^k} &  v \ge 0\\
+  0   &    v\le 0 
+\end{array}
+\right.
+$$
+
+Para el ejercicio tomar un valor $k = 2$ y  $\lambda=8$.
 </div>
 
 ## Algoritmo genético para solucionar el problema del agente viajero. 
