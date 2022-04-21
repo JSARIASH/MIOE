@@ -550,8 +550,54 @@ Se puede realizar el gráfico directamente.
 
 
 
-## Ejercicio datos irradiación
-También lo tomamos del curos de estocástica. 
+## Ejercicio: datos irradiación
+
+<div align="justify">
+El ejercicio consiste en realizar una análisis descriptivo de los datos irradiación que se encuentran en la carpeta: *Datos/Fin_Semana_2/irradiation_profiles*.
+
+**Actividades**
+
+- Leer los datos y crear un solo objeto con la siguiente estructura: 
+
+```{r, eval=TRUE, echo=FALSE, highlight=TRUE, collapse=TRUE}
+tibble::tibble(dia = c(1, 1, 1), minuto = c(1:3), irradiacion=c(0,0,0))
+```
+
+</div>
+
+***
+<div align="justify">
+- Realizar un gráfico con las irradiaciones de todos los días. ¿Se puede modificar un patrón? Modificar el parámetro *alpha*.
+</div>
+
+***
+- Realizar un gráfico que perminta observar los perfiles para cada día
+<center>
+![Perfiles](~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/Perfiles.svg){width=100%, height=100%}
+</center>
+
+***
+<div align="justify">
+
+</div>
+
+***
+<div align="justify">
+
+</div>
+
+
+***
+<div align="justify">
+
+</div>
+
+
+***
+<div align="justify">
+
+</div>
+
 
 ## _PCA en R_
 
