@@ -1,0 +1,955 @@
+---
+title: "Fundamentos de programación y análisis de datos en R"
+author: "Juan Sebastián Arias Hernández"
+subtitle: Una introducción no tan breve
+output:
+  ioslides_presentation:
+    logo: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/Rlogo.png
+    css: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/estilo.css
+  slidy_presentation: default
+  beamer_presentation: default
+institute: Universidad Tecnológica de Pereira
+bibliography: presentacion.bib
+---
+
+# Outputs
+
+## Archivos csv 
+
+<div align="justify">
+Los archivos separados por comas son uno de los formatos más utilizados para compartir información. En _R_ podemos crear estos tipos de archivos con la función: **_write.csv()_**. 
+
+Siguiendo con el ejemplo que estamos trabajando, vamos a guardar la variable _estimacion_ en nuestros equipos. Para ello empleamos los siguientes comandos: 
+
+```{r, eval=FALSE, echo=TRUE}
+write.csv(estimacion, file = "DR/acciones/descriptivas.csv", 
+          row.names = FALSE
+          )
+```
+
+_estimacion_ debe existir en el ambiente de trabajo y _file_ es la ruta donde deseamos guardar el archivo, note que incluye el nombre y la extención.
+</div>
+
+## Imágenes
+
+<div align="justify">
+Los _plots_ se pueden guardar en diferentes formatos: _png_, _jpg_, _svg_, _bmp_, _tiff_ entre otras. Esta acción se puede llevar acabo vía interfaz o mediante líneas de comando. Esta última tiene la ventaja de automatizar el procedimiento. 
+
+El siguiente código guarda una imágen en formato _svg_.
+
+```{r, echo=TRUE, eval=FALSE}
+# Se abre el dispositivo (svg).
+svg(filename = "plot/probabilidad.svg")
+
+# Se realiza el gráfico.
+plot(estimacion[, 3], type = "l")
+
+# Se cierra el dispositivo.
+dev.off()
+```
+</div>
+
+***
+
+<div align="justify">
+La función _graficos_precio()_ la podemos modificar para que guarde todos los gráficos en el siguiente directorio: _plot/acciones/_.
+
+```{r, eval=FALSE, echo=TRUE}
+graficos_precio <- function(x) {
+  nombre <- colnames(x)[2]
+  nombre <- gsub(pattern = ".Open", replacement = "", nombre)
+  ruta <- paste0("plot/acciones/", nombre, ".svg")
+  svg(ruta)
+  plot(x[, 1], x[, 4], type = "l", main = nombre, 
+       ylab = "Precio", xlab = "Año")
+  grid(30, 30)
+  dev.off()
+  return(NULL)
+}
+
+```
+
+
+# Introdución a _Tidyverse_
+***
+<div align="justify">
+**Tidyverse** es un conjunto de paquetes para realizar ciencia de datos. Estos paquetes comparten un mismo marco o gramática que crean una sinergía en el análisis. Varios de estos fueron escritos por [Hadley Wickham](https://hadley.nz/) en [RStudio](https://www.rstudio.com/). 
+
+Estos paquetes permiten limpiar, describir, modelar y graficar datos de manera sencilla. Entre ellos se destacan: 
+
+- [**ggplot2**](https://ggplot2.tidyverse.org/): Este paquete permite realizar gráficos y esta básado en [_The Grammar of Graphics_](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl) de [Leland Wilkinson](https://en.wikipedia.org/wiki/Leland_Wilkinson).
+- [**dplyr**](https://dplyr.tidyverse.org/): Este paquete permite manipular datos a partir de una gramatica basada en 5 verbos.  
+- [**tidyr**](http://vita.had.co.nz/papers/tidy-data.html): Esta colección de funciones ayudan a organizar datos en una forma adecuada para realizar anális de datos. 
+
+[Paquetes recomendados](https://www.rstudio.com/products/rpackages/)
+</div>
+
+***
+<div align="justify">
+Estos paquetes pueden ser instalados mediente el siguiente comando: 
+
+```{r, echo=TRUE, eval=FALSE}
+install.packages("tidyverse")
+```
+
+El comando anterior solo se requiere ejecutar una vez. Luego de instalados podemos cargar las funciones con la siguiente línea de código: 
+
+```{r, echo=TRUE, eval=FALSE}
+library("tidyverse")
+```
+
+La línea anterior se debe ejecutar cada vez que se inicie una nueva sesión en R. 
+
+</div>
+
+
+## _ggplot2_
+
+<div align="justify">
+Este paquete es utilizado para realizar gráficos estadísticos y esta basado en la grámatica desarrollada por @grammar_graphics. Esta gramática responde a la pregunga ¿Que es un gráfico estadístico? [@GGplot2]. 
+
+Estos gráficos son el resultado de asignar atributos estéticos (colores, formas, tamaños) a un conjunto de datos. _ggplot2_ permite incorporar un conjunto de componentes independientes en un mismo _‘‘layout’’_ para crear visualizaciones robustas. 
+
+Extenciones se han realizado para crear [arte algoritmico](https://en.wikipedia.org/wiki/Algorithmic_art). Algunos ejemplos: [Antonio Sánchez](https://fronkonstin.com/),  [Thomas Lin Pedersen](https://www.data-imaginist.com/), [aRtsy](https://koenderks.github.io/aRtsy/), [R Image Art](http://mfviz.com/r-image-art/), [Getting Started with Generative Art in R](https://towardsdatascience.com/getting-started-with-generative-art-in-r-3bc50067d34b).
+</div>
+
+***
+### Elementos básicos
+<div align="justify">
+ Para crear un gráfico con _ggplot2_ se requiere de los siguientes elementos: 
+  
+  - *Datos*: Deben estar en forma de data.frame o data.table. 
+  - *Propiedades estéticas*: Estas se definen con la función _aes()_ y asignan los atributos que se pueden percibir como: color, tamaño, posicion, formas. 
+  - *Geométrias*: Estas definen el tipo de gráfico: puntos, lineas, barras, boxplot, etc. 
+  - *Facetas*: Estas permiten dividir el 
+</div>
+
+Para una mayor comprensión consultar @GGplot2.
+
+***
+
+### Ejemplo
+<div align="justify">
+En este ejemplo vamos a trabajar con las medidas descriptivas que se obtuvieron de 
+las acciones. 
+
+```{r, eval=TRUE, echo=TRUE, highlight=TRUE, collapse=TRUE, message=FALSE}
+library(ggplot2)
+library(readr)
+ datos_acciones <- read_csv(
+   file = "../Datos/Fin_Semana_2/descriptivas.csv"
+   )
+
+head(datos_acciones[1:5], 3)
+```
+</div>
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center', collapse=TRUE}
+ggplot(data = datos_acciones, aes(riesgo, rendimientos))
+```
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center', collapse=TRUE}
+ggplot(data = datos_acciones, aes(riesgo, rendimientos)) + 
+  geom_point()
+```
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center', collapse=TRUE}
+ggplot(data = datos_acciones, aes(riesgo, rendimientos)) + 
+  geom_point(colour = "salmon")
+```
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center', collapse=TRUE}
+ggplot(data = datos_acciones, aes(riesgo, rendimientos)) + 
+  geom_point(colour = "salmon") + theme_linedraw()
+```
+
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center'}
+ggplot(data = datos_acciones, aes(riesgo, rendimientos)) + 
+  geom_point(shape = 21, colour = "black", fill = "salmon") + 
+  theme_linedraw()
+```
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center'}
+ggplot(data = datos_acciones, 
+    aes(x = riesgo, y = rendimientos, fill = color)
+       ) +  geom_point(shape = 21) + theme_linedraw()
+```
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center'}
+ggplot(data = datos_acciones, 
+    aes(x = riesgo, y = rendimientos, colour = color)
+       ) + geom_point() + theme_linedraw() +
+  scale_color_manual(values = c("darkgreen", "red"))
+```
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center'}
+ggplot(data = datos_acciones, 
+    aes(x = riesgo, y = rendimientos, colour = color)
+       ) + geom_point(alpha = 0.4) + theme_linedraw() +
+  scale_color_manual(values = c("darkgreen", "red"))
+```
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center'}
+ggplot(data = datos_acciones, 
+       aes(x = riesgo, y = rendimientos, 
+           colour = color, size = abs(pendiente))
+       ) +  geom_point(alpha = 0.3) + theme_linedraw() +
+  scale_color_manual(values = c("darkgreen", "red"))
+```
+
+***
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, fig.align='center', fig.asp= 0.46}
+ggplot(data = datos_acciones, 
+       aes(x = riesgo, y = rendimientos, 
+           colour = color, size = abs(pendiente))
+       ) +  geom_point(alpha = 0.3) + theme_linedraw() +
+  scale_color_manual(values = c("darkgreen", "red")) + 
+  ggtitle(label = "Riesgo vs Retorno", subtitle = "Renta variable") + 
+  ylab(label = expression(mu)) + xlab(expression(sigma))
+```
+
+***
+
+<div align="justify">
+
+Por último se puede modifiar las siguientes caracteristícas: 
+
+- Títulos: al gráfico, a los ejes y eliminar las leyendas.
+
+- Agregar una línea línea a $45^\circ$ y otra horizontal en cero, se debe modificar los límites en el eje _x_ con la función _xlim_.
+
+```{r, eval=FALSE, highlight=TRUE, echo=TRUE, fig.align='center'}
+ ggplot(data = datos_acciones, 
+       aes(x = riesgo, y = rendimientos, 
+           colour = color, size = abs(pendiente))
+       ) +  geom_point(alpha = 0.3) + theme_linedraw() +
+  scale_color_manual(values = c("navy", "salmon")) + 
+  ggtitle(label = "Riesgo vs Retorno", subtitle = "Renta variable") + 
+  ylab(label = expression(mu)) + xlab(expression(sigma)) + 
+  xlim(c(0, 0.04)) +  geom_hline(yintercept = 0, colour = "red") + 
+  geom_abline(slope = 1, intercept = 0, color = "purple") + 
+  theme(legend.position = "none")
+
+```
+
+</div>
+
+***
+
+```{r, eval=TRUE, echo=FALSE, fig.align='center'}
+ ggplot(data = datos_acciones, 
+       aes(x = riesgo, y = rendimientos, 
+           colour = color, size = abs(pendiente))
+       ) +  geom_point(alpha = 0.6) + theme_linedraw() +
+  scale_color_manual(values = c("navy", "salmon")) + 
+  ggtitle(label = "Riesgo vs Retorno", subtitle = "Renta variable") + 
+  ylab(label = expression(mu)) + xlab(expression(sigma)) + 
+  xlim(c(0, 0.04)) +  geom_hline(yintercept = 0, colour = "red") + 
+  geom_abline(slope = 1, intercept = 0, color = "purple") + 
+  theme(legend.position = "none")
+```
+
+## Optimizar el portafolio (un gran  paréntesis)
+
+<div align="justify">
+Ya que tenemos el gráfico de riegos vs retorno,  podemos proceder a optimizar un portafolio basados en el trabajo desarrollado por @markowitz.
+
+$$\max z= \lambda\sum_{i = 1}^{n} \mu^tx_{i} - (1-\lambda)\sum_{j = 1}^{n}\sum_{i = 1}^{n}x_{i}x_{j}\sigma_{i,j} \\
+\sum_{i=1}^{n} x_{i} = 1 \\
+x_{i} \ge 0 \\
+\lambda \in [0, 1]
+$$
+</div>
+
+***
+
+<div align="justify">
+El modelo anterior se puede expresar de forma matricial como: 
+
+$$
+  \max z = \lambda \mu^tx - (1-\lambda)x^t\Sigma x \\
+  \sum_{i=1}^{n} x = 1 \\
+  x \ge 0 \\
+\lambda \in [0, 1]
+$$
+
+$\mu$ es el promedio de los rendimientos. $\Sigma$ es la matriz de varianzas y covarianzas de los rendimientos. $x$ es la variable de decisión que indica la proporción a invertir en cada activo. 
+</div>
+
+***
+
+### Pasos para aplicar el modelo. 
+
+<div align="justify">
+ - Se necesitan los rendimientos de los activos $ln(\frac{p_{t}}{p_{t-1}})$ en una matriz de nxm. 
+ 
+ - Se calculan los promedios de los rendimientos. 
+ 
+ - Calcular la matriz de varianzas y covarianzas. Para esto los activos deben tener la misma cantidad de observaciones. 
+ 
+ - Se requiere de una herramienta para modelar y resolver el problema. Instalar el paquete *CVXR*
+ 
+```{r, eval=FALSE, echo=TRUE, highlight=TRUE}
+install.packages("CVXR")
+```
+</div>
+
+***
+
+<div align="justify">
+
+### CVXR
+Tips para trabajar con el paquete: 
+
+- Las variables se declaran con la función *Variable()*. Es un vector columna. 
+- La forma cuadrática con la función *quad_form()*.
+- Las restricciones se pueden crear como una *lista()*.
+- El problema *Problem()*. Importante indicar si es de maximización o minimización. 
+- Se resuelve con *solve()*
+
+</div>
+
+## _dplyr_
+
+<div align="justify">
+**dplyr** implementa una gramátia para la manipulación de datos. Hay  5 verbos fundamentales: 
+
+- *select()*: Selecciona variables de acuerdo a su nombre.
+- *filter()*: Selecciona elementos de la tabla dependiendo de condiciones. 
+- *mutate()*: Crea nuevas columnas a la tabla. 
+- *summarise()*: Agrega valores. 
+- *arrange()*: Cambia el orden de las filas. 
+
+Otras funciones utiles son: 
+
+- *group_by()*: Agrupar por variables. 
+- *relocate()*: Cambia el orden de las columnas. 
+</div>
+
+***
+
+### Ejemplo _dplyr_
+
+### *select()*
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, message=FALSE}
+library(dplyr)
+datos_acciones %>% select(1:2) %>% head(10)
+```
+
+***
+
+Seleccionar las columnas 1, 4 y 7. 
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, message=FALSE}
+datos_acciones %>% select(c(1, 4, 7)) %>% head(10)
+```
+
+***
+
+Se pueden seleccionar con los nombres de las variables. 
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, message=FALSE}
+datos_acciones %>% select(c("riesgo", "intercepto", "pendiente")) %>% 
+  head(10)
+```
+
+***
+
+### *filter()*
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, message=FALSE}
+datos_acciones %>% filter(probabilidad < 0.5) %>% 
+  head(10)
+```
+
+***
+
+<div align="justify">
+Varias codiciones se pueden realizar sobre la misma o diferente variable. Por defecto se interpreta como un $\&$.
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, message=FALSE}
+datos_acciones %>% filter(probabilidad < 0.5, pendiente < 0) %>% 
+  head(10)
+```
+</div>
+
+***
+
+<div align="justify">
+
+¿Sí quiero un *O*? 
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, message=FALSE}
+datos_acciones %>% filter(probabilidad < 0.4  | probabilidad > 0.55) %>% 
+  select(probabilidad, titulo)
+```
+
+Note que no se separa con coma *,*.
+</div>
+
+***
+
+### *mutate()*
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+datos_acciones %>%  mutate(datos_acciones, coef_var = rendimientos / riesgo) %>% 
+  select(6:8)
+```
+
+***
+
+### *relocate()* 
+
+<div align="justify">
+Cambiamos el roden de las variables. 
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+datos_acciones %>% relocate(titulo, .before = rendimientos) %>% 
+  select(1:5) 
+```
+</div>
+
+***
+
+### *arrange()*
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+ datos_acciones %>% arrange((rendimientos)) %>% 
+  select(1:5)
+```
+
+***
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+ datos_acciones %>% arrange(desc(rendimientos)) %>% 
+  select(1:5)
+```
+
+***
+
+### *summarise()* 
+<div align="justify">
+Esta función nos permite agregar la información (medias desviaciones, máximos, mínimos etc).
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+ datos_acciones %>% summarise(
+   max_ren = max(rendimientos), min_ren = min(rendimientos),
+   max_riesgo = max(riesgo), min_riesgo = min(riesgo)
+   )
+```
+
+Los *‘‘verbos’’* anteriores se pueden mezclar entre ellos y con la función *group_by* podemos realizar operaciones más complejas.  
+</div>
+
+***
+
+
+### Ejemplo: Rendimientos con *dplyr*
+<div align="justify">
+```{r, eval=TRUE, echo=TRUE, cache=TRUE, warning=FALSE, message=FALSE}
+ library(readr)
+ library(dplyr)
+ acciones_todas <- read_csv(
+   file = "../Datos/Fin_Semana_2/acciones.csv", 
+   col_names = TRUE, col_types = list("c", "D", "d")
+   )
+ head(acciones_todas)
+```
+</div>
+
+***
+<div aling="justify">
+Antes, vamos a ordenarlos de forma descendente por fecha.
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+acciones_todas %>% arrange(desc(Fecha))
+```
+\\Oo/
+</div>
+
+***
+
+<div align="justify">
+
+Con la función *group_by()* se pueden ordenar agrupando por activo. 
+
+```{r, eval=TRUE, highlight=TRUE, echo=TRUE, collapse=TRUE, cache=TRUE}
+  acciones_todas <- acciones_todas %>% group_by(Activo) %>%                     
+   arrange(desc(Fecha), .by_group = TRUE)
+  head(acciones_todas, 7)
+```
+
+</div>
+
+***
+
+<div align="justify">
+
+Podemos proceder a calcular los rendimientso
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, cache=TRUE}
+  acciones_todas %>% mutate(
+    rendimientos = log(Precio/lead(Precio))
+  )
+```
+
+
+</div>
+
+***
+
+<div align="justify">
+
+Calculemos el rendimiento promedio y la desviación
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
+   acciones_todas %>% mutate(
+    rendimientos = log(Precio/lead(Precio))) %>% 
+      summarise(Promedio = mean(rendimientos,  na.rm= TRUE),
+                Desviacion = sd(rendimientos, na.rm = TRUE)
+                )
+  
+```
+
+</div>
+
+***
+
+<div align="justify">
+
+Se puede realizar el gráfico directamente.
+
+```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, cache=TRUE, fig.align='center', fig.dim=c(5, 3.5)}
+    acciones_todas %>% mutate(
+    rendimientos = log(Precio/lead(Precio))) %>% 
+      summarise(Promedio = mean(rendimientos,  na.rm= TRUE),
+                Desviacion = sd(rendimientos, na.rm = TRUE)) %>% 
+   ggplot(aes(Desviacion, Promedio)) + geom_point()
+``` 
+</div>
+
+
+
+## Ejercicio datos irradiación
+
+## _PCA en R_
+
+
+## Estructuras de control 
+
+<div align="justify">
+LAS estructuras de control que permiten escoger la *"dirección"*  o la cantidad de veces que  un conjunto de instrucciones se ejecutan dependiendo de unos parámetros establecidos y unas variables que están siendo operadas.  Las más comunes son: [@AdvanceR]
+
+- *if* 
+
+- *else if* 
+
+- *else*
+
+- *for*
+
+- *while*
+</div>
+
+***
+
+### Estructura *if*
+<p align="justify">
+El *if* nos permite decidir sobre una ruta de acción partiendo de unas condiciones iniciales y una prueba lógica que marca el camino a seguir. 
+</p>
+
+### Ejemplo:
+
+<p align="justify">
+Suponga que usted desea adquirir un crédito de libre inversión, de manera que se dirige a diferentes entidades bancarias para realizar la cotización. Usted lo ha reflexionado y la entidad ha escoger será aquella que ofrezca una tasa inferior al $22\%$ efectiva anual.
+</p>
+
+***
+
+ <p align="justify">
+ Al conjunto de reglas que se deben seguir para escribir correctamente en un lenguaje de programación se le denomina *Sintaxis*. La forma adecuada  de escribir un *if* en *R* es la siguiente.
+ </p>
+
+<div style="float: left; width: 50%;">
+<p align="left">
+<font size="5"> Sintaxis </font>
+</p>
+ <p align="justify">
+     <font color="blue">
+     <b>
+       _*if (prueba lógica) {<br>
+        \  Sentencia 1 <br>
+        \  Sentencia N <br>
+       }*_
+       </b>
+    </font>
+  </p> 
+</div>
+
+<div style="float: left; width: 50%;">
+<p align="justify">
+<font size="5"> Código </font>
+</p>
+  <p align="center">  
+    <font color="blue">
+    <b>
+```{r}
+i <- 0.28
+if(i < 0.22){
+  print("Realizar el préstamo")
+}
+```
+    </b>
+    </font>
+  </p>
+</div>
+
+<p align="justify">
+Dos observaciones importantes a tener en cuenta:
+
+* Una *prueba lógica* sólo tiene dos resultados: *Verdadero* y *Falso*.
+* La sentencia solo se ejecuta en caso de que sea verdadera.
+</p>
+
+***
+
+### *Else if*
+Volviendo a nuestro ejemplo. Suponga que luego de investigar un poco en internet usted decide que si la tasa es menor a $24 \%$ su decisión es: *"Lo voy a pensar"*. En tal caso se requiere de una nueva prueba. Para ello utilizamos el *else if*.
+
+```{r collapse = TRUE, highlight = TRUE}
+i <- 0.23
+if(i < 0.22){
+  print("Realizar el préstamo")
+}else if (i < 0.24){
+  print("Lo voy a pensar")
+}
+```
+
+***
+### *Else*
+<p align="justify">
+Por último, si la tasa es $\ge 24 \%$ definitivamente no se realiza el préstamo. En este caso el *else* es el complemento de las dos pruebas anteriores y no requiere ser evaluada explícitamente. 
+</p>
+```{r collapse = TRUE, highlight = TRUE}
+i <- 0.26
+if(i < 0.22){
+  print("Realizar el préstamo")
+}else if(i < 0.24){
+  print("Lo voy a pensar")
+}else{
+  print("No voy a realizar el préstamo")
+}
+```
+
+***
+
+### Observaciones
+<p align="justify">
+Una característica importante cuando se escribe una sentencia de decisión es que el programa ingresa a la primera prueba que es verdadera. Observemos detenidamente el siguiente código. 
+</p>
+```{r collapse = TRUE, highlight=TRUE}
+i <- 0.18
+if(i < 0.26){
+  print("No voy a realizar el préstamo")
+}else if(i < 0.24){
+  print("Lo voy a pensar")
+}
+```
+<p align="justify">
+Como el interés ($0.18$) es menor a $0.26$ la primera condición es verdadera y obtenemos como respuesta *No voy a realizar el préstamo*. El énfasis se debe a que generalmente se suele pensar que el programa se va preguntando cada una de las pruebas lógicas y esto no ocurre.        :'(
+</p>
+
+
+***
+### Ciclos
+<p align="justify">
+Los ciclos nos permiten repetir un conjunto de instrucciones una *"cierta"* cantidad de veces. Nos enfocaremos principalmente en los ciclos *for* y  *while*, *repeat* es uno que poco se usa en análisis de datos y se deja como consulta al investigador.
+</p>
+
+### *_for_*
+<p align="justify">
+Esta estructura requiere de una variable que indexa una secuencia de números o de elementos un conjunto. Su sintaxis es la siguiente:
+</p>
+<p align="justify">
+     <font color="blue">
+     <b>
+       _*for (<span style="color: #6A1B9A"> variable </span> <span style="color: #28B463">  in </span> <span style="color: #E65100"> valores </span>) {<br>
+        \  Sentencia 1 <br>
+        \  Sentencia N <br>
+       }*_
+       </b>
+    </font>
+  </p> 
+
+
+***
+### Ejemplos
+<div style="float: left; width: 50%;">
+```{r collapse=TRUE, highlight=TRUE}
+# Ejemplo 1
+
+ for(i in 1:12){
+   print(i)
+ }
+```
+</div>
+<div style="float: left; width: 50%;">
+```{r collapse=TRUE, highlight=TRUE}
+# Ejemplo 2
+
+cto <- c("uno", "dos", "tres", 
+     "cuatro","cinco", "seis",
+     "siete", "ocho", "nueve")
+for(k in cto){
+  print(k)
+} 
+```
+</div>
+
+***
+### _while_
+<p align="justify">
+Este tipo de ciclo parte de una condición, en caso de que esta sea verdadera ejecuta las sentencias hasta que la prueba lógica se haga falsa.
+</p>
+<div style="float: left; width: 50%;">
+<p align="left">
+<font size="5"> Sintaxis </font>
+</p>
+ <p align="justify">
+     <font color="blue">
+     <b>
+       _*while(prueba lógica) {<br>
+        \  Sentencia 1 <br>
+        \  Sentencia 2 <br>
+        \  . <br>
+        \  . <br>
+        \  . <br>
+        \  Sentencia N <br>
+       }*_
+       </b>
+    </font>
+  </p> 
+</div>
+
+<div style="float: left; width: 50%;">
+<p align="justify">
+<font size="5"> Código </font>
+</p>
+  <p align="center">  
+    <font color="blue">
+    <b>
+```{r, collapse=TRUE, highlight=TRUE}
+cont <- 0
+while(cont < 4){
+  print(cont)
+  cont <- cont + 1
+}
+```
+    </b>
+    </font>
+  </p>
+</div>
+Estos deben utilizarce con cuidado ya que si la prueba lógica no se hace *falsa* se corre con el riesgo de un bucle *"infinito"*.
+
+### Ejercicios prácticos. 
+<p align="justify">
+La tasa interna de retorno, *TIR*, es uno de los indicadores más utilizados en finanzas ya que indica cual debe ser la tasa mínima a la que debe rentar una inversión con el fin de no generar pérdidas ni ganancias. La *TIR* está dada por la siguiente expresión:
+</p>
+$$TIR = \sum_{i = 1}^{n}\frac{F_{n}}{(1 + i)^n} - I_{0}= 0$$
+<p align="justify">
+La ecuación anterior se puede resolver análiticamente cuando $n$ toma valores pequeños. Si $n$ es grande, se recurre a métodos numéricos como _bisección_.
+</p>
+
+***
+###  Bisección
+<p align="justify">
+Este método es utilizado para encontrar las raíces de $f(x)$ asumiendo que la función es continua el intervalo $[a_{0},   a_{1}]$ y $f(a_{0})*f(a_{1}) < 0$.
+</p>
+```{r echo=FALSE, fig.height=5, fig.width=5, fig.align='center'}
+x <- seq(-10, 10, by = 0.1)
+y <- (x) ^ 3  
+plot(x, y, type = "l", lwd = 2, col = "purple", las = 1, main = expression(bolditalic(f[(x)]==x^3)),
+     xlab = expression(bolditalic(x)), ylab = expression(bolditalic(y)))
+text(x = c(-8, -8, 8, 8), y = c(0, -500, 0, 500) , labels = c(
+  expression(bolditalic(a[0])),
+  expression(bolditalic(f[(a[0])])),
+  expression(bolditalic(a[1])),
+  expression(bolditalic(f[(a[1])]))
+  )
+)
+grid(13, 13)
+lines(x = c(-8, -8), y = c(-50, -480), col = "red", lty = 2)
+lines(x = c(8, 8), y = c(50, 480), col = "red", lty = 2)
+abline(h = 0, v = 0, col = "green", lty = 2)
+```
+***
+Diagrama de flujo del método de bisección.
+<center>
+<br>
+<img src="/home/sebastian/Documents/Directorios/R/Programacion_Lab/markdown/Biseccion.png" height="520px" width="410px"/>
+</center>
+
+
+***
+#### Ejemplo
+Vamos a determinar la $TIR$ para el siguiente flujo de caja. 
+
+```{r echo=FALSE, highlight=TRUE, fig.align="center"}
+plot(0:12, 0:12, type = "n", ylab = "", xlab = "",  yaxt = 'n', main = expression(bolditalic("Flujo de caja")))
+abline(h = 5, lty = 2, col = "black")
+a <- seq(1, 12, by = 2)
+b <- c(2, 6.5, 6, 8, 9, 7.5)
+arrows(x0 = a[1], x1 = a[1], y0 = 5, y1 = 2, col = "red", length = 0.1)  
+for(i in 2:length(a)){
+arrows(x0 = a[i], x1 = a[i], y0 = 5, y1 = b[i], col = "blue", length = 0.1)  
+}
+text(x = a, y = b, labels = c(
+ expression(-1000),
+ expression(200),
+ expression(150),
+ expression(350),
+ expression(400),
+ expression(300)
+), adj = 1.2, offset = 0.3
+)
+grid(12, 12)
+```
+
+***
+La ecuación que buscamos resolver es la siguiente:
+<font size = "4" color = "black">
+$$  TIR = \frac{200}{(1 + i) ^ 1} + \frac{150}{(1 + i) ^ 2} + \frac{350}{(1 + i)^3} + \frac{450}{(1 + i)^4} + \frac{300}{(1 + i)^5} - 1000 = 0$$
+</font>
+<p align="justify">
+Ahora, para poder aplicar el método de bisección debemos garantizar que en un intervalo $[a, b]$ se cumpla que $f(a)*f(b) < 0$ para que exista al menos una raíz. 
+</p>
+```{r echo=FALSE, fig.align='center', fig.width=4.5, fig.height=3}
+i <- seq(0, 0.3, length.out = 50)
+f0 <- -1000
+flujos <- c(200, 150, 350, 450, 300)
+ele_i <- length(i)
+tir <- vector(length = length(i))
+for(k in 1:ele_i){
+  tir[k] <- sum(flujos / (1 + i[k]) ^ (1:length(flujos))) + f0
+}
+par(mai = c(0.4, 0.7, 0.2, 0.1))
+plot(i, tir, main = "", xaxt = "n", yaxt = "n", xlab = "", ylab = "", type = "l", lwd = 1.3, lty = 1, col = "purple")
+grid(12, 12)
+abline(h = 0, col = "red", lty = 3)
+mtext(side = 1, line = 1, text = expression(bolditalic(i)))
+mtext(side = 2, line = 1.5, text = expression(bolditalic(TIR)))
+axis(1, mgp=c(3, .3, 0))
+axis(2, mgp=c(3, .7, 0))
+```
+
+***
+```{r, echo=FALSE}
+a <- 0
+b <- 0.2
+fa <- sum(flujos / (1 + a) ^ (1:length(flujos))) + f0
+fb <- sum(flujos / (1 + b) ^ (1:length(flujos))) + f0
+
+pm <- (a + b) / 2
+fpm <- sum(flujos / (1 + pm) ^ (1:length(flujos))) + f0
+cont <- 0
+ while ((b - a) > 0.0000000001){ # una es con la función objetivo (abs(fpm)) la diferencia entre b - a
+   if(fa * fpm > 0){
+     a <- pm
+     fa <- fpm
+   }else{
+     b <- pm
+     fb <- fpm
+   }
+   pm <- (a + b) / 2
+   fpm <- sum(flujos / (1 + pm) ^ (1:length(flujos))) + f0
+ }
+```
+
+<p align="justify">
+La expresión anterior se puede resolver con el método de bisección obteniendo un resultado para $i$ de: `r pm`.
+</p>
+<p align="justify">
+En la $TIR$ tradicionalmente se asume que los periodos son iguales. En caso de que los periodos de pago sean diferentes se debe recurrir a la $TirNoPer$ (la tir no periódica) dada  por la siguiente expresión:
+$$\sum_{k = 1}^{n}\frac{F_{n}}{(1 + i)^\frac{d_{k}-d_{1}}{365}}= 0$$
+</p>
+
+<p align="justify">
+El método funciona igual debido a que lo único que cambia es el exponente del denominador. 
+</p>
+
+***
+<p aling="justify">
+Determine la tir no periódica del siguiente flujo de caja. 
+</p>
+
+|Valores|Fechas|
+|:-----:|:----:|
+|-10000 |1 ene 08|
+|2750   |1 mar 08|
+|4250   |30 oct 08|
+|3250   |15 feb 09|
+|2750   |1 abr 09|
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(lubridate,)
+fo <- ymd("08/01/01")
+ff <- ymd(c("08/03/01", "08/10/30", "09/02/15", "09/04/01"))
+ff <- c(fo, ff)
+ptcia <- ff - fo
+#ptcia[2:length(ptcia)] <- ptcia[2:length(ptcia)] - 1
+ptcia <- as.numeric(ptcia) / 365
+#inv0 <- -10000
+flujos <- c(-10000, 2750, 4250, 3250, 2750)
+a <- 0
+b <- 0.9
+fa <- sum(flujos / (1 + a) ^ ptcia)
+fb <- sum(flujos / (1 + b) ^ ptcia)
+pm <- (a + b) / 2
+fpm <- sum(flujos / (1 + pm) ^ ptcia)
+cont <- 0
+while ((b - a) > 0.00000001){
+  cont <- cont + 1
+  if(fpm * fa > 0){
+      a <- pm
+      fa <- fpm
+  }else{
+      b <- pm 
+      fb <- fpm
+  }
+  pm <- (a + b) / 2
+  fpm <- sum(flujos / (1 + pm) ^ ptcia)
+}
+```
+<br>
+El resultado para la tir no periódica es `r pm`. **_El ejemplo tomado de la ayuda de Excel_**
+
+## Simulación. 
+
+<div align="justify">
+
+</div>
+
+## Algoritmo genético para solucionar el problema del agente viajero. 
+
+
+## Referencias
