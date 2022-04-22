@@ -27,13 +27,13 @@ write.csv(estimacion, file = "DR/acciones/descriptivas.csv",
           )
 ```
 
-_estimacion_ debe existir en el ambiente de trabajo y _file_ es la ruta donde deseamos guardar el archivo, note que incluye el nombre y la extención.
+_estimacion_ debe existir en el ambiente de trabajo y _file_ es la ruta donde deseamos guardar el archivo, note que incluye el nombre y la extensión
 </div>
 
 ## Imágenes
 
 <div align="justify">
-Los _plots_ se pueden guardar en diferentes formatos: _png_, _jpg_, _svg_, _bmp_, _tiff_ entre otras. Esta acción se puede llevar acabo vía interfaz o mediante líneas de comando. Esta última tiene la ventaja de automatizar el procedimiento. 
+Los _plots_ se pueden guardar en diferentes formatos: _png_, _jpg_, _svg_, _bmp_, _tiff_ entre otras. Esta acción se puede llevar a cabo vía interfaz o mediante líneas de comando. Esta última tiene la ventaja de automatizar el procedimiento. 
 
 El siguiente código guarda una imágen en formato _svg_.
 
@@ -70,7 +70,7 @@ graficos_precio <- function(x) {
 ```
 
 
-# Introdución a _Tidyverse_
+# Introducción a _Tidyverse_
 ***
 <div align="justify">
 **Tidyverse** es un conjunto de paquetes para realizar ciencia de datos. Estos paquetes comparten un mismo marco o gramática que crean una sinergía en el análisis. Varios de estos fueron escritos por [Hadley Wickham](https://hadley.nz/) en [RStudio](https://www.rstudio.com/). 
@@ -78,7 +78,7 @@ graficos_precio <- function(x) {
 Estos paquetes permiten limpiar, describir, modelar y graficar datos de manera sencilla. Entre ellos se destacan: 
 
 - [**ggplot2**](https://ggplot2.tidyverse.org/): Este paquete permite realizar gráficos y esta básado en [_The Grammar of Graphics_](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl) de [Leland Wilkinson](https://en.wikipedia.org/wiki/Leland_Wilkinson).
-- [**dplyr**](https://dplyr.tidyverse.org/): Este paquete permite manipular datos a partir de una gramatica basada en 5 verbos.  
+- [**dplyr**](https://dplyr.tidyverse.org/): Este paquete permite manipular datos a partir de una gramática basada en 5 verbos.  
 - [**tidyr**](http://vita.had.co.nz/papers/tidy-data.html): Esta colección de funciones ayudan a organizar datos en una forma adecuada para realizar anális de datos. 
 
 [Paquetes recomendados](https://www.rstudio.com/products/rpackages/)
@@ -86,7 +86,7 @@ Estos paquetes permiten limpiar, describir, modelar y graficar datos de manera s
 
 ***
 <div align="justify">
-Estos paquetes pueden ser instalados mediente el siguiente comando: 
+Estos paquetes pueden ser instalados mediante el siguiente comando: 
 
 ```{r, echo=TRUE, eval=FALSE}
 install.packages("tidyverse")
@@ -106,11 +106,11 @@ La línea anterior se debe ejecutar cada vez que se inicie una nueva sesión en 
 ## _ggplot2_
 
 <div align="justify">
-Este paquete es utilizado para realizar gráficos estadísticos y esta basado en la grámatica desarrollada por @grammar_graphics. Esta gramática responde a la pregunga ¿Que es un gráfico estadístico? [@GGplot2]. 
+Este paquete es utilizado para realizar gráficos estadísticos y está basado en la gramática desarrollada por @grammar_graphics. Esta gramática responde a la pregunta ¿Que es un gráfico estadístico? [@GGplot2]. 
 
 Estos gráficos son el resultado de asignar atributos estéticos (colores, formas, tamaños) a un conjunto de datos. _ggplot2_ permite incorporar un conjunto de componentes independientes en un mismo _‘‘layout’’_ para crear visualizaciones robustas. 
 
-Extenciones se han realizado para crear [arte algoritmico](https://en.wikipedia.org/wiki/Algorithmic_art). Algunos ejemplos: [Antonio Sánchez](https://fronkonstin.com/),  [Thomas Lin Pedersen](https://www.data-imaginist.com/), [aRtsy](https://koenderks.github.io/aRtsy/), [R Image Art](http://mfviz.com/r-image-art/), [Getting Started with Generative Art in R](https://towardsdatascience.com/getting-started-with-generative-art-in-r-3bc50067d34b).
+Extensiones se han realizado para crear [arte algoritmico](https://en.wikipedia.org/wiki/Algorithmic_art). Algunos ejemplos: [Antonio Sánchez](https://fronkonstin.com/),  [Thomas Lin Pedersen](https://www.data-imaginist.com/), [aRtsy](https://koenderks.github.io/aRtsy/), [R Image Art](http://mfviz.com/r-image-art/), [Getting Started with Generative Art in R](https://towardsdatascience.com/getting-started-with-generative-art-in-r-3bc50067d34b).
 </div>
 
 ***
@@ -119,8 +119,8 @@ Extenciones se han realizado para crear [arte algoritmico](https://en.wikipedia.
  Para crear un gráfico con _ggplot2_ se requiere de los siguientes elementos: 
   
   - *Datos*: Deben estar en forma de data.frame o data.table. 
-  - *Propiedades estéticas*: Estas se definen con la función _aes()_ y asignan los atributos que se pueden percibir como: color, tamaño, posicion, formas. 
-  - *Geométrias*: Estas definen el tipo de gráfico: puntos, lineas, barras, boxplot, etc. 
+  - *Propiedades estéticas*: Estas se definen con la función _aes()_ y asignan los atributos que se pueden percibir como: color, tamaño, posición, formas. 
+  - *Geométrias*: Estas definen el tipo de gráfico: puntos, líneas, barras, boxplot, etc. 
   - *Facetas*: Estas permiten dividir el 
 </div>
 
@@ -232,7 +232,7 @@ ggplot(data = datos_acciones,
 
 <div align="justify">
 
-Por último se puede modifiar las siguientes caracteristícas: 
+Por último se puede modificar las siguientes caracteristícas: 
 
 - Títulos: al gráfico, a los ejes y eliminar las leyendas.
 
@@ -272,7 +272,7 @@ Por último se puede modifiar las siguientes caracteristícas:
 ## Optimizar el portafolio (un gran  paréntesis)
 
 <div align="justify">
-Ya que tenemos el gráfico de riegos vs retorno,  podemos proceder a optimizar un portafolio basados en el trabajo desarrollado por @markowitz.
+Ya que tenemos el gráfico de *riego vs retorno*,  podemos proceder a optimizar un portafolio basados en el trabajo desarrollado por @markowitz.
 
 $$\max z= \lambda\sum_{i = 1}^{n} \mu^tx_{i} - (1-\lambda)\sum_{j = 1}^{n}\sum_{i = 1}^{n}x_{i}x_{j}\sigma_{i,j} \\
 \sum_{i=1}^{n} x_{i} = 1 \\
@@ -332,7 +332,7 @@ Tips para trabajar con el paquete:
 ## _dplyr_
 
 <div align="justify">
-**dplyr** implementa una gramátia para la manipulación de datos. Hay  5 verbos fundamentales: 
+**dplyr** implementa una gramática para la manipulación de datos. Hay  5 verbos fundamentales: 
 
 - *select()*: Selecciona variables de acuerdo a su nombre.
 - *filter()*: Selecciona elementos de la tabla dependiendo de condiciones. 
@@ -386,7 +386,7 @@ datos_acciones %>% filter(probabilidad < 0.5) %>%
 ***
 
 <div align="justify">
-Varias codiciones se pueden realizar sobre la misma o diferente variable. Por defecto se interpreta como un $\&$.
+Varias condiciones se pueden realizar sobre la misma o diferente variable. Por defecto se interpreta como un $\&$.
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, message=FALSE}
 datos_acciones %>% filter(probabilidad < 0.5, pendiente < 0) %>% 
@@ -505,7 +505,7 @@ Con la función *group_by()* se pueden ordenar agrupando por activo.
 
 <div align="justify">
 
-Podemos proceder a calcular los rendimientso
+Podemos proceder a calcular los rendimientos.
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE, cache=TRUE}
   acciones_todas %>% mutate(
@@ -571,7 +571,7 @@ tibble::tibble(dia = c(1, 1, 1), minuto = c(1:3), irradiacion=c(0,0,0))
 </div>
 
 ***
-- Realizar un gráfico que perminta observar los perfiles para cada día
+- Realizar un gráfico que permita observar los perfiles para cada día
 <center>
 ![Perfiles](~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/Perfiles.svg){width=100%, height=100%}
 </center>
@@ -579,24 +579,49 @@ tibble::tibble(dia = c(1, 1, 1), minuto = c(1:3), irradiacion=c(0,0,0))
 ***
 <div align="justify">
 
+- Realizar un gráfico de puntos que permita observar el comportamiento de la irradiación para cada una de las 24 horas. 
+
+- Realizar un *boxplot()* que permita observar el comportamiento de la irradiación para cada una de las 24 horas. 
+
+- Realizar un plot que incorpore los dos gráficos anteriores. 
+
+*Sugerencias*: 
+
+Crear una nueva variable que permita identificar la hora a la que pertenece cada minuto, por ejemplo: el minuto 1 pertenece a la hora 1, el minuto  62 pertenece a la hora 2, etc. Utilizar la función *geom_jitter()*
+
 </div>
 
 ***
 <div align="justify">
+- Realizar un gráfico de líneas con los promedios de irradiación para cada día y hora. Para esto calcular: para el día uno el promedio de irradiación para las horas $1, 2, 3, \cdots, 24$. De igual manera para el día $2, 3, \cdots, 100$.
+
+- Agregar puntos a la gráfica anterior. 
+
+- Realizar un gráfico de líneas para el día 1. 
+
+- Realizar un gráfico de líneas para una muestra de 10 días de los 100 totales.  
+
+- Realizar un histograma para el primer día. 
+
+- Realizar un gráfico que permita mostrar los histogramas para cada una de las 24 horas. Utilice la función *face_wrap()*.
 
 </div>
 
 
 ***
 <div align="justify">
-
+ - Realizar un gráfico que permita mostrar los histogramas para las horas de la 9 a la 18. Utilice la función *face_wrap()*.
+ 
+ - Al gráfico anterior superponga la función de densidad. 
+ 
+ - Realice un gráfico que muestre los histogramas para las horas $[1, 2, \cdots, 7 \cup 20, \cdots, 24]$.
+ 
+ - Realizar un gráfico de violín. 
+ 
+ - Realizar un gráfico únicamente con las funciones de densidad para las horas $9, 10, \cdots, 18$. ¿Qué horas tienen comportamientos similares?
 </div>
 
 
-***
-<div align="justify">
-
-</div>
 
 
 ## _PCA en R_
@@ -675,7 +700,7 @@ if(i < 0.22){
 Dos observaciones importantes a tener en cuenta:
 
 * Una *prueba lógica* sólo tiene dos resultados: *Verdadero* y *Falso*.
-* La sentencia solo se ejecuta en caso de que sea verdadera.
+* La sentencia sólo se ejecuta en caso de que sea verdadera.
 </p>
 
 ***
@@ -997,7 +1022,7 @@ El objetivo de esta técnica es aproximar una solución a un problema cuantitati
 
 Por ejemplo: 
 
- - Mediante simulación calcule la probabilidad de que al menos dos personas de 38 cumplan años el mismo día. Para ello lea el archivo que se encuentra en *cumple.csv* y tome muestras de manera aleatoria de tamaño 38 y calcule la probabildiad. 
+ - Mediante simulación calcule la probabilidad de que al menos dos personas de 38 cumplan años el mismo día. Para ello lea el archivo que se encuentra en *cumple.csv* y tome muestras de manera aleatoria de tamaño 38 y calcule la probabilidiad. 
 </div>
 
 
@@ -1005,7 +1030,7 @@ Por ejemplo:
 
 ***
 <div align="justify">
-- Una recepcionista recibió $N=10$ sombreros y decidió devolverlod de cualquier forma. Ecuentre la probababilidad de que ningún sombrero sea entregado a su dueño mediante simulación Montecarlo. 
+- Una recepcionista recibió $N=10$ sombreros y decidió devolverlos de cualquier forma. Encuentre la probabilidad de que ningún sombrero sea entregado a su dueño mediante simulación Montecarlo. 
 
  - Usar simulación Monte Carlo para estimar la media de lanzamientos necesarios de seis dados, para que cada dado presente por lo menos una vez el valor de 6. 
  
@@ -1033,12 +1058,12 @@ curve(dweibull(x, shape = 2, scale = 8), 0, 24, col = "navy", lwd = 2,
 grid(24, NULL)
 
 ```
-Utilizar simulación montecarlo para determinar el valore esperado de la potencia si la velocidad sigue una distribución *Weibull*
+Utilizar simulación montecarlo para determinar el valor esperado de la potencia si la velocidad sigue una distribución *Weibull*
 </div>
 
 ***
 <div align="justify">
-La función de distribución de *Weibull* esta dada por:
+La función de distribución de *Weibull* está dada por:
 
 $$f(v) = \left\{\begin{array}{ll}
  \frac{k}{\lambda}(\frac{v}{\lambda})^{k-1} e^{-(\frac{v}{\lambda})^k} &  v \ge 0\\
