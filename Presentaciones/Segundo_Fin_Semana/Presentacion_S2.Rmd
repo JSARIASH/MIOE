@@ -622,11 +622,6 @@ Crear una nueva variable que permita identificar la hora a la que pertenece cada
 </div>
 
 
-
-
-## _PCA en R_
-
-
 ## Estructuras de control 
 
 <div align="justify">
@@ -1025,8 +1020,10 @@ Por ejemplo:
  - Mediante simulación calcule la probabilidad de que al menos dos personas de 38 cumplan años el mismo día. Para ello lea el archivo que se encuentra en *cumple.csv* y tome muestras de manera aleatoria de tamaño 38 y calcule la probabilidiad. 
 </div>
 
-
-## Los siguientes ejercicios fueron tomados del curso de *Optimización estocástica* del programa doctorado en ingeniería dictado por el profesor John Fredy Franco Baquero el año 2022
+***
+<center>
+### Los siguientes ejercicios fueron tomados del curso de *Optimización estocástica* del programa doctorado en ingeniería dictado por el profesor John Fredy Franco Baquero el año 2022
+</center>
 
 ***
 <div align="justify">
