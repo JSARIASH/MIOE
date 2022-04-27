@@ -1032,11 +1032,15 @@ Por ejemplo:
  - Usar simulación Monte Carlo para estimar la media de lanzamientos necesarios de seis dados, para que cada dado presente por lo menos una vez el valor de 6. 
  
  - Estimar la distancia media entre dos puntos en un cuadrado de lado 1 usando simulaciones Montecarlo. 
+ 
+ - Suponga que se deja caer una aguja de longitud $l$  en un plano con líneas cuya distancia entre las lineas es $d$. Si $l > d$, calcule la probabilidad de que la aguja corte una de las líneas con simulación. Al problema anterior se le conoce como [Aguja de Buffon](https://mathworld.wolfram.com/BuffonsNeedleProblem.html)  y fue uno de los primeros problemas de probabilidad geométrica en resolverse. 
+ 
 </div>
 
 ***
 <div align="justify">
-Una turbina eólica genera potencia eléctrica $P$ en función de la velocidad del viento $v$. Según las figuras: 
+
+- Una turbina eólica genera potencia eléctrica $P$ en función de la velocidad del viento $v$. Según las figuras: 
 
 ```{r, eval = TRUE, echo=FALSE, fig.align='center', fig.width=8, fig.height=4}
 par(mfrow = c(1, 2))
