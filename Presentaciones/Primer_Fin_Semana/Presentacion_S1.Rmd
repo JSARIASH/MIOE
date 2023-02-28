@@ -1,15 +1,20 @@
 ---
 title: "Fundamentos de programación y análisis de datos en R"
-author: "Juan Sebastián Arias Hernández"
+author: "Juan Sebastián Arias Hernández <br> Adriana María Santa Alvarado"
 subtitle: Una introducción no tan breve
 output:
   ioslides_presentation:
-    logo: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/Rlogo.png
-    css: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/estilo.css
+    logo: ~/Documents/UTP/Cursos/Maestria_IO/Repo_Nivelatorio_R/Presentaciones/Imagenes_presentacion/Rlogo.png
+    css: ~/Documents/UTP/Cursos/Maestria_IO/Repo_Nivelatorio_R/Presentaciones/Imagenes_presentacion/estilo.css
   slidy_presentation: default
   beamer_presentation: default
 institute: Universidad Tecnológica de Pereira
 bibliography: presentacion.bib
+editor_options: 
+  markdown: 
+    wrap: 72
+header-includes:
+- \usepackage{amsmath}
 ---
 
 # Introducción
@@ -17,58 +22,93 @@ bibliography: presentacion.bib
 ## R
 
 <p align="justify">
-*R* es un software para realizar computación estadística y visualización de datos *_[@r-projec]_*; fue creado por *Ross Ihaka* y *Robert Gentleman* en 1991. 
+
+*R* es un software para realizar computación estadística y visualización
+de datos [@r-projec]; fue creado por *Ross Ihaka* y *Robert Gentleman*
+en 1991.
+
 </p>
 
 <p align="justify">
-En el año  1995 es licenciado bajo GNU (*General Public License*) [@RDataSience] haciendo de este un software libre. Esto permitió acceder al código fuente posibilitando mejoras y a que la cantidad de usuarios aumentara, a tal punto de convertirse en uno de los programas más utilizados para realizar análisis de datos. 
+
+En el año 1995 es licenciado bajo GNU (*General Public License*)
+[@RDataSience] haciendo de este un software libre. Esto permitió acceder
+al código fuente posibilitando mejoras y a que la cantidad de usuarios
+aumentara, a tal punto de convertirse en uno de los programas más
+utilizados para realizar análisis de datos.
+
 </p>
 
 <p align="justify">
-La filosofía de *_R_*, [@RDataSience], consiste en crear un entorno que permita realizar rutinas estadísticas complejas de manera sencilla mediante líneas de comando, adicionalmente, ofrecer un lenguaje para realizar programas en caso que las necesidades lo requieran.
+
+La filosofía de *R*, [@RDataSience], consiste en crear un entorno que
+permita realizar rutinas estadísticas complejas de manera sencilla
+mediante líneas de comando, adicionalmente, ofrecer un lenguaje para
+realizar programas en caso que las necesidades lo requieran.
+
 </p>
 
 ## ¿Por qué utilizar R? {#future-steps .emphasized}
+
 <p align="justify">
-**R**  es libre. Lo que implica que no hay que pagar por instalarlo, actualizarlo o compartilo. Además de lo anterior, algunos beneficios que valen la pena resaltar son:
+
+**R** es libre. Lo que implica que no hay que pagar por instalarlo,
+actualizarlo o compartilo. Además de lo anterior, algunos beneficios que
+valen la pena resaltar son:
+
 </p>
 
-<div align="justify">
--  Tiene gran acogida en la comunidad científica y académica, por lo tanto, hay un gran número de personas dedicando su tiempo, esfuerzo y trabajo desarrollando en él.
--  Aprender un software requiere esfuerzo y tiempo, por lo que conocer una herramienta que pueda ser utilizada en ambientes académicos, investigativos y empresariales.
-- Una comunidad grande y sólida que brinda soporte y nuevos paquetes. 
-</div>
+::: {align="justify"}
+-   Tiene gran acogida en la comunidad científica y académica, por lo
+    tanto, hay un gran número de personas dedicando su tiempo, esfuerzo
+    y trabajo desarrollando en él.
+-   Aprender un software requiere esfuerzo y tiempo, por lo que conocer
+    una herramienta que pueda ser utilizada en ambientes académicos,
+    investigativos y empresariales.
+-   Una comunidad grande y sólida que brinda soporte y nuevos paquetes.
+:::
 
-## Desventajas 
-<div align="justify">
--  No tiene soporte técnico ni garantía. Esto se resuelve debido a que la comunidad es activa y está en crecimiento
--  No es rápido y si el código esta mal escrito puede ser terriblemente lento. 
--  Los objetos son almacenados en memoria, por lo tanto el mayor objeto está dado por la *RAM* del computador.
-- No hay garantía que las rutinas estadísticas que vienen con los paquetes sean correctas. De allí que se debe tener muy claro lo que se está haciendo para identificar inconsistencias. 
--  Los usuarios de *R* no son generalmente programadores, por esta razón muchas de las rutinas están enfocadas a los resultados y no a desarrollar un código claro y rápido.
-</div>
+## Desventajas
+
+::: {align="justify"}
+-   No tiene soporte técnico ni garantía. Esto se resuelve debido a que
+    la comunidad es activa y está en crecimiento
+-   No es rápido y si el código esta mal escrito puede ser terriblemente
+    lento.
+-   Los objetos son almacenados en memoria, por lo tanto el mayor objeto
+    está dado por la *RAM* del computador.
+-   No hay garantía que las rutinas estadísticas que vienen con los
+    paquetes sean correctas. De allí que se debe tener muy claro lo que
+    se está haciendo para identificar inconsistencias.
+-   Los usuarios de *R* no son generalmente programadores, por esta
+    razón muchas de las rutinas están enfocadas a los resultados y no a
+    desarrollar un código claro y rápido.
+:::
 
 ## Ejemplos
 
 # Manos a la obra
 
-## Objetos 
-<div align="justify">
+## Objetos
+
+::: {align="justify"}
 En *R* existen 5 objetos principales:
 
-- Lógicos.
-- Enteros.
-- Numeric (números reales).
-- Complejos.
-- Caracteres.
+-   Lógicos.
+-   Enteros.
+-   Numeric (números reales).
+-   Complejos.
+-   Caracteres.
 
-Estos objetos son la base del programa. Se pueden operar y agrupar para crear estructuras de datos y rutinas cada vez más complejas. 
-</div>
+Estos objetos son la base del programa. Se pueden operar y agrupar para
+crear estructuras de datos y rutinas cada vez más complejas.
+:::
 
-***
-<div align="justify">
-En la consola escribir y luego dar _Enter_ a cada una de las siguientes líneas.
+------------------------------------------------------------------------
 
+::: {align="justify"}
+En la consola escribir y luego dar *Enter* a cada una de las siguientes
+líneas.
 
 ```{r, highlight=TRUE, collapse=TRUE, eval=TRUE}
       TRUE  # Este objeto es lógico
@@ -79,53 +119,59 @@ En la consola escribir y luego dar _Enter_ a cada una de las siguientes líneas.
       "hola mundo" # Es un carácter
 ```
 
-**_Nota_** En la consola interactuamos con R; ingresamos comandos y nos devuelve respuestas.
+***Nota*** En la consola interactuamos con R; ingresamos comandos y nos
+devuelve respuestas.
+:::
 
-</div>
+------------------------------------------------------------------------
 
-***
-<div align="justify">
+::: {align="justify"}
 Adicionalmente, *R* posee algunas variables de uso común:
 
--  **NaN** (Not a Number). Indica que se están realizando operaciones incorrectas. 
--  **NA** Not Available. Es lo que en estadística se conoce comúnmente como faltantes. 
--  **Inf** Representa el infinito. 
--  **NULL** Se utiliza para representar un lista de longitud cero.
+-   **NaN** (Not a Number). Indica que se están realizando operaciones
+    incorrectas.
+-   **NA** Not Available. Es lo que en estadística se conoce comúnmente
+    como faltantes.
+-   **Inf** Representa el infinito.
+-   **NULL** Se utiliza para representar un lista de longitud cero.
 
 ```{r, highlight=TRUE, eval=TRUE, collapse=TRUE}
 0/0
 1000 / Inf
 Inf / Inf
 ```
-
-</div>
-
+:::
 
 ## Operadores
+
 <p align="justify">
-Los operadores son símbolos que indican que "operación" debe llevarse a cabo. 
+
+Los operadores son símbolos que indican que "operación" debe llevarse a
+cabo.
+
 </p>
 
 ### Operadores lógicos
 
-<div class="columns-2">
- Operador | Descripción
- :---------:|:--------:
- &    | Y lógico  (La comparación se realiza a lo largo del objeto).
- \|   | Ó lógico (La comparación realiza a lo largo del objeto).
- !    | Operador de negación.
- 
- Operador | Descripción
- :---------:|:--------:
- &&  |   (La comparación se realiza al primer elemento)
- \|\| |    (La comparación se realiza al primer elemento)
- xor() |  Es igual a: !(x\|y). Excluye el or. 
-</div>
+::: {.columns-2}
+| Operador |                         Descripción                         |
+|:--------:|:-----------------------------------------------------------:|
+|    &     | Y lógico (La comparación se realiza a lo largo del objeto). |
+|    \|    |  Ó lógico (La comparación realiza a lo largo del objeto).   |
+|    !     |                    Operador de negación.                    |
 
-***
+| Operador |                  Descripción                   |
+|:--------:|:----------------------------------------------:|
+|    &&    | (La comparación se realiza al primer elemento) |
+|   \|\|   | (La comparación se realiza al primer elemento) |
+|  xor()   |      Es igual a: !(x\|y). Excluye el or.       |
+:::
 
-<div class="columns-2">
+------------------------------------------------------------------------
+
+::: {.columns-2}
 Conjunción lógica Y
+
 ```{r, collapse=TRUE, highlight=TRUE, eval=TRUE}
  TRUE & TRUE
  TRUE & FALSE
@@ -134,13 +180,14 @@ Conjunción lógica Y
 ```
 
 Conjunción lógica O
+
 ```{r, collapse=TRUE, highlight=TRUE, eval=TRUE}
  TRUE | TRUE
  TRUE | FALSE
  FALSE | TRUE
  FALSE | FALSE
 ```
-</div>
+:::
 
 ```{r, collapse=TRUE, highlight=TRUE, eval=TRUE}
 !TRUE
@@ -148,39 +195,43 @@ Conjunción lógica O
 !(TRUE & FALSE)
 ```
 
-***
+------------------------------------------------------------------------
 
-<div align="justify">
-Para cada uno de los siguientes ejercicios determine la respuesta de antemano, luego compruebe en _R_ el resultado.
+::: {align="justify"}
+Para cada uno de los siguientes ejercicios determine la respuesta de
+antemano, luego compruebe en *R* el resultado.
 
-- $\small{TRUE \, \&  \, FALSE \, | \, FALSE}$ 
+-   $\small{TRUE \, \& \, FALSE \, | \, FALSE}$
 
-- $\small{FALSE \,|\, FALSE \,|\, TRUE}$
+-   $\small{FALSE \,|\, FALSE \,|\, TRUE}$
 
-- $\small{TRUE \,  \& \, TRUE \, \& \, !FALSE}$
+-   $\small{TRUE \, \& \, TRUE \, \& \, !FALSE}$
 
-- $\small{(TRUE \, | \, FALSE) \, \& \, (FALSE \, \&  \, FALSE)}$
+-   $\small{(TRUE \, | \, FALSE) \, \& \, (FALSE \, \& \, FALSE)}$
 
-- $\small{!(TRUE \, \& \,  !(FALSE \,| \,FALSE))}$
-</div>
+-   $\small{!(TRUE \, \& \, !(FALSE \,| \,FALSE))}$
+:::
 
-***
+------------------------------------------------------------------------
 
 ### Operadores relacionales
+
 <p align="center">
- Operador | Símbolo
- :---------:|:--------:
- Igual a  | ==
- Menor que| <
- Mayor que| >
- Menor o igual | $\leq$
- Mayor o igual | $\geq$
- Diferente | !=
+
+|   Operador    | Símbolo |
+|:-------------:|:-------:|
+|    Igual a    |   ==    |
+|   Menor que   |   \<    |
+|   Mayor que   |   \>    |
+| Menor o igual | $\leq$  |
+| Mayor o igual | $\geq$  |
+|   Diferente   |   !=    |
+
 </p>
 
-***
+------------------------------------------------------------------------
 
-Veamos algunos ejemplos: 
+Veamos algunos ejemplos:
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
 2 < 10
@@ -192,55 +243,61 @@ FALSE == 0
 3 > 6 | 4 < 5
 !(3 > 6 | 4 < 5)
 ```
-***
 
-<div align="justify">
-Determine de antemano la respuesta de cada uno de los siguientes ejercicios,  luego compruebe el resultado  en _R_. 
+------------------------------------------------------------------------
 
-- $\small{!(2 == 2 \, \& \, 3 >= 2)}$
+::: {align="justify"}
+Determine de antemano la respuesta de cada uno de los siguientes
+ejercicios, luego compruebe el resultado en *R*.
 
-- $\small{!(2 > 3 \, | -10 > 0)}$
+-   $\small{!(2 == 2 \, \& \, 3 >= 2)}$
 
-- $\small{49/49 == 1}$
+-   $\small{!(2 > 3 \, | -10 > 0)}$
 
-- $\small{0.1 == .3/3}$
+-   $\small{49/49 == 1}$
 
-- $\small{0.3 - 0.1 == 0.2}$
+-   $\small{0.1 == .3/3}$
 
-</div>
-***
+-   $\small{0.3 - 0.1 == 0.2}$
+:::
+
+------------------------------------------------------------------------
+
 ### Operadores aritméticos
 
-<div class="columns-2">
-   Operador | Símbolo | 
-   :---------:|:--------:
-   Suma  | +
-   Resta| -
-   Multiplicación| *
-   División | /
-   Potenciación| ^
- 
-   Operador | Símbolo
-   :---------:|:--------:
-   Módulo | %%
-   División entera | %/%
-   Multiplicación de matrices | %*%
-   Producto exterior | %o%
-   Producto Kronecker | %x%
+::: {.columns-2}
+|    Operador    | Símbolo |
+|:--------------:|:-------:|
+|      Suma      |   \+    |
+|     Resta      |   \-    |
+| Multiplicación |   \*    |
+|    División    |    /    |
+|  Potenciación  |   \^    |
 
-</div>
+|          Operador          | Símbolo |
+|:--------------------------:|:-------:|
+|           Módulo           |   %%    |
+|      División entera       |   %/%   |
+| Multiplicación de matrices |  %\*%   |
+|     Producto exterior      |   %o%   |
+|     Producto Kronecker     |   %x%   |
+:::
 
-***
+------------------------------------------------------------------------
 
 ### Operadores de asignación
+
 <p align="center">
-  Operador | Descripción
-  :---------:|:--------:
-    <-, =  | Asignación a la izquierda
-    ->     | Asignación a la derecha. 
+
+| Operador |        Descripción        |
+|:--------:|:-------------------------:|
+|  \<-, =  | Asignación a la izquierda |
+|   -\>    | Asignación a la derecha.  |
+
 </p>
 
-Un operador que emplearemos frecuentemente es el _dos puntos_. Este nos permite crear secuencias. 
+Un operador que emplearemos frecuentemente es el *dos puntos*. Este nos
+permite crear secuencias.
 
 ```{r, highlight=TRUE, collapse=TRUE, eval=TRUE}
 10:1
@@ -249,70 +306,109 @@ Un operador que emplearemos frecuentemente es el _dos puntos_. Este nos permite 
 
 ## Precedencias
 
-<p align="justify"> 
-Las ***Precedencias*** indican el orden en que se ejecutan las operaciones aritméticas y lógicas, [link](https://www.nytimes.com/2019/08/02/science/math-equation-pedmas-bemdas-bedmas.html?smtyp=cur&smid=tw-nytimes). A continuación algunas de ellas numeradas de la más importante 1 a la menos 10. 
+<p align="justify">
+
+Las ***Precedencias*** indican el orden en que se ejecutan las
+operaciones aritméticas y lógicas,
+[link](https://www.nytimes.com/2019/08/02/science/math-equation-pedmas-bemdas-bedmas.html?smtyp=cur&smid=tw-nytimes).
+A continuación algunas de ellas numeradas de la más importante 1 a la
+menos 10.
+
 </p>
 
-<div style="float: left; width: 50%;">
- 1. Paréntesis
- 2. Potenciación
- 3. Dos puntos
- 4. Módulo
- 5. Multiplicación y división.
-</div>
+::: {style="float: left; width: 50%;"}
+1.  Paréntesis
+2.  Potenciación
+3.  Dos puntos
+4.  Módulo
+5.  Multiplicación y división.
+:::
 
-<div style="float: left; width: 50%;">
-  <ol start="6">
-    <li> Suma y resta </li>
-    <li> Comparaciones </li> 
-    <li> Negación (!) </li>
-    <li> Y lógico </li>
-    <li> Ó lógico </li>
-  </ol>
-</div>
+::: {style="float: left; width: 50%;"}
+<ol start="6">
 
-***
+<li>
+
+Suma y resta
+
+</li>
+
+<li>
+
+Comparaciones
+
+</li>
+
+<li>
+
+Negación (!)
+
+</li>
+
+<li>
+
+Y lógico
+
+</li>
+
+<li>
+
+Ó lógico
+
+</li>
+
+</ol>
+:::
+
+------------------------------------------------------------------------
+
 ### Ejercicios
-<div align="justify">
-Evalúe las siguientes expresiones en _R_.
 
- - $\small{5 + 2 ^ 3 - 4 \cdot 8/2}$
- - $\frac{1}{\frac{1}{21} + \frac{1}{25} + \frac{1}{18} + \frac{1}{30}}$
- - $\small{9+1.796 \cdot \sqrt{0.291 \cdot (\frac{1}{14}+\frac{1}{11})}}$
- - $\small{\frac{9 \cdot \frac{23-\pi^3}{4} + 2^4}{3}}$
- - $\small{f_{(x)} = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} \\  \mu = 3.5 \; y \; \sigma = 2.6 \rightarrow f_{(3)}, f_{(2.98)}}$
-</div>
+::: {align="justify"}
+Evalúe las siguientes expresiones en *R*.
 
-Realizar el siguiente ejercicio: [Hit the Lottery](https://codeforces.com/problemset/problem/996/A)
+-   $\small{5 + 2 ^ 3 - 4 \cdot 8/2}$
+-   $\frac{1}{\frac{1}{21} + \frac{1}{25} + \frac{1}{18} + \frac{1}{30}}$
+-   $\small{9+1.796 \cdot \sqrt{0.291 \cdot (\frac{1}{14}+\frac{1}{11})}}$
+-   $\small{\frac{9 \cdot \frac{23-\pi^3}{4} + 2^4}{3}}$
+-   $\small{f_{(x)} = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}} \\ \mu = 3.5 \; y \; \sigma = 2.6 \rightarrow f_{(3)}, f_{(2.98)}}$
+:::
+
+Realizar el siguiente ejercicio: [Hit the
+Lottery](https://codeforces.com/problemset/problem/996/A)
 
 # Funciones
 
 ## Introducción a las funciones
-<div align="justify">
-Las funciones son una clase particular de objetos. A estos objetos generalmente se les ingresa unos argumentos, aunque pueden no llevarlos, para que realicen unos procedimientos y retornes una respuesta. La sintaxis se ejemplifica a continuación. 
+
+::: {align="justify"}
+Las funciones son una clase particular de objetos. A estos objetos
+generalmente se les ingresa unos argumentos, aunque pueden no llevarlos,
+para que realicen unos procedimientos y retornes una respuesta. La
+sintaxis se ejemplifica a continuación.
 
 <p align="justify">
-     <font color="blue">
-     <b>
-     _Nombre_Función(Arg1, Arg2, Arg3, ...)_
-     </b>
-    </font>
+
+<font color="blue"> <b> *Nombre_Función(Arg1, Arg2, Arg3, ...)* </b>
+</font>
+
 </p>
+
 Algunas funciones de uso común.
 
-- **_getwd()_**: Permite identificar el directorio de trabajo. Esta es la carpta donde *R* busca y guarda los archivos, datos y programas por defecto.
- 
-- **_setwd()_**: Esta función se utiliza para cambiar el directorio de trabajo.
- 
+-   ***getwd()***: Permite identificar el directorio de trabajo. Esta es
+    la carpta donde *R* busca y guarda los archivos, datos y programas
+    por defecto.
 
+-   ***setwd()***: Esta función se utiliza para cambiar el directorio de
+    trabajo.
+:::
 
-</div>
+------------------------------------------------------------------------
 
-***
- - **_help()_**: Accedemos a la documentación. 
+-   ***help()***: Accedemos a la documentación.
 
- - **_example()_**: Imprime en la consola algunos ejemplos.
-
+-   ***example()***: Imprime en la consola algunos ejemplos.
 
 ```{r, highlight=TRUE, collapse=TRUE, eval=TRUE}
   c(1, 10, 20)
@@ -320,20 +416,24 @@ Algunas funciones de uso común.
   example("mean")
 ```
 
-
 ## Ejercicios.
+
 <p align="justify">
-Con las funciones _example()_ y _help()_ estudie los siguientes comandos:
+
+Con las funciones *example()* y *help()* estudie los siguientes
+comandos:
+
 </p>
 
-<div style="float: left; width: 50%;">
- 1. sd()
- 2. mean()
- 3. length()
- 4. nrow()
- 5. ncol()
-</div>
+::: {style="float: left; width: 50%;"}
+1.  sd()
+2.  mean()
+3.  length()
+4.  nrow()
+5.  ncol()
+:::
 
+```{=html}
 <div style="float: left; width: 50%; start="6";">
 <ol start="6">
  <li> rep() </li>
@@ -342,27 +442,29 @@ Con las funciones _example()_ y _help()_ estudie los siguientes comandos:
  <li> floor() </li>
  <li> ceiling() </li>
 </div>
-dnorm, pnorm, qnorm, rnorm. 
+```
+dnorm, pnorm, qnorm, rnorm.
 
 ## Gráficos en dos dimensiones.
- 
 
 ```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
 plot(1, 1)
 ```
 
-Esta función tiene una gran cantidad de parámetros. Recuerden que podemos acceder a la documentación con la función **help()**
+Esta función tiene una gran cantidad de parámetros. Recuerden que
+podemos acceder a la documentación con la función **help()**
 
-***
+------------------------------------------------------------------------
 
 ### Grafiquemos una parábola.
+
 ```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
 x <- seq(-10, 10, by = 0.5)
 y <- x ^ 2
 plot(x, y)
 ```
 
-***
+------------------------------------------------------------------------
 
 \\(O.o)/ Ahora unamos los puntos con una línea.
 
@@ -372,16 +474,20 @@ y <- x ^ 2
 plot(x, y, type = "l")
 ```
 
-***
- Modifiquemos el tipo de la línea, el espesor y el color. 
+------------------------------------------------------------------------
+
+Modifiquemos el tipo de la línea, el espesor y el color.
+
 ```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
 x <- seq(-10, 10, by = 0.5)
 y <- x ^ 2
 plot(x, y, type = "l", lwd = 4, lty = 2, col = "purple")
 ```
 
-***
+------------------------------------------------------------------------
+
 Podemos poner el título al gráfico y a los ejes.
+
 ```{r, highlight=TRUE, collapse=TRUE, eval=TRUE, out.height='60%', out.width='60%', fig.align='center'}
 x <- seq(-10, 10, by = 0.5)
 y <- x ^ 2
@@ -389,29 +495,33 @@ plot(x, y, type = "l", lwd = 4, lty = 3, col = "darkblue",
      main = "Parábola", xlab = "Dominio", ylab = "Rango")
 ```
 
-*** 
+------------------------------------------------------------------------
 
-<div align="justify">
-Una de las distribuciones de probabilidad más utilizadas en estadística es la [normal](https://mathworld.wolfram.com/NormalDistribution.html). Su expresión viene dada por: 
+::: {align="justify"}
+Una de las distribuciones de probabilidad más utilizadas en estadística
+es la [normal](https://mathworld.wolfram.com/NormalDistribution.html).
+Su expresión viene dada por:
 
 $$
   f(x) = \frac{1}{\sigma\sqrt{2 \pi}} e ^ {-\frac{(x-\mu)^2}{2\sigma^2}}
-$$
-Donde $\mu$ representa el parámetro de posición y $\sigma$ el de forma. 
+$$ Donde $\mu$ representa el parámetro de posición y $\sigma$ el de
+forma.
 
+Vamos a realizar un plot de la gaussiana con las siguientes
+características:
 
-Vamos a realizar un plot de la gaussiana con las siguientes características: 
+1.  $\mu = 0, \mu = 2, \mu = -2$. y $-10 \leq x \leq 10$.
+2.  Debe tener leyenda.
+3.  El eje y debe tener la función anterior.
 
-1. $\mu = 0, \mu = 2, \mu = -2$. y $-10 \leq x \leq 10$.
-2. Debe tener leyenda. 
-3. El eje y debe tener la función anterior. 
+Tips: [clic
+Me](https://stat.ethz.ch/R-manual/R-patched/library/grDevices/html/plotmath.html)
+y en la consola escriba: **demo(plotmath)**
+:::
 
-Tips: [clic Me](https://stat.ethz.ch/R-manual/R-patched/library/grDevices/html/plotmath.html) y en la consola escriba: **demo(plotmath)**
+------------------------------------------------------------------------
 
-</div>
-
-***
-El resultado debe ser similar al siguiente: 
+El resultado debe ser similar al siguiente:
 
 ```{r,echo=FALSE,eval=TRUE, out.height='100%', out.width='100%', fig.align='center'}
 sigma <- 1
@@ -437,35 +547,51 @@ legend(x = 5, y = 0.4, legend = c(expression(mu==-2),expression(mu == 0), expres
 ```
 
 ## Ejercicios
-Realice las gráficas de las siguientes funciones y en el eje **y** escriba la relación matemática. 
 
-- $f(x) = ln(x)  \quad 0 < x \leq 10$
-- $f(x) = \sqrt[2]{x} \quad 0 \leq x \leq 10$
-- $f(x) = 3x^2 \quad -5 \leq x \leq 5$
-- $f(x) = -3x^2 \quad -5 \leq x \leq 5$
-- $f(x) = x^3 - 9x   \quad -4 \leq x \leq 4$
-- $f(x) = sin(x) \quad 0 \leq x \leq \pi$
-- $f(x) = cos(x) \quad 0 \leq x \leq \pi$
-- $f(x) = tan(x) \quad -1.5 \leq x \leq 1.5$
+Realice las gráficas de las siguientes funciones y en el eje **y**
+escriba la relación matemática.
 
-***
+-   $f(x) = ln(x) \quad 0 < x \leq 10$
+-   $f(x) = \sqrt[2]{x} \quad 0 \leq x \leq 10$
+-   $f(x) = 3x^2 \quad -5 \leq x \leq 5$
+-   $f(x) = -3x^2 \quad -5 \leq x \leq 5$
+-   $f(x) = x^3 - 9x \quad -4 \leq x \leq 4$
+-   $f(x) = sin(x) \quad 0 \leq x \leq \pi$
+-   $f(x) = cos(x) \quad 0 \leq x \leq \pi$
+-   $f(x) = tan(x) \quad -1.5 \leq x \leq 1.5$
 
-<div align="justify">
+------------------------------------------------------------------------
 
-- Realice el gráfico de la distribución normal para $\mu = 0, \, \sigma=1 \, \sigma=2, \, \sigma = 3$. El plot debe tener la leyenda y la fución en el eje **y** (similar al de la diapositiva 31).
+::: {align="justify"}
+-   Realice el gráfico de la distribución normal para
+    $\mu = 0, \, \sigma=1 \, \sigma=2, \, \sigma = 3$. El plot debe
+    tener la leyenda y la fución en el eje **y** (similar al de la
+    diapositiva 31).
 
-- La función de distribución de **Poisson** se define por:
-$$f(x) = \frac{e^{-\lambda} \lambda^x}{x!}$$
-Donde $\lambda$ es un parámetro positivo que mide el número de veces que ocurre un evento e un intervalo. $x!$ representa el factorial de $x$, es decir, el producto de los números enteros positivos de 1 a $x$. Por ejemplo: si $x = 5$ entonces $x! = 5 \cdot4\cdot3\cdot2\cdot1= 120$. En **R** se puede utilizar la función **factorial()**. Realice un plot para valores de $\lambda=1, \, \lambda = 4,  \, \lambda= 10$ y $x \in \{0, 1, \cdots , 30\}$. No olvidar la leyenda y la función en el eje **y**.
-</div>
+-   La función de distribución de **Poisson** se define por:
+    $$f(x) = \frac{e^{-\lambda} \lambda^x}{x!}$$ Donde $\lambda$ es un
+    parámetro positivo que mide el número de veces que ocurre un evento
+    e un intervalo. $x!$ representa el factorial de $x$, es decir, el
+    producto de los números enteros positivos de 1 a $x$. Por ejemplo:
+    si $x = 5$ entonces $x! = 5 \cdot4\cdot3\cdot2\cdot1= 120$. En **R**
+    se puede utilizar la función **factorial()**. Realice un plot para
+    valores de $\lambda=1, \, \lambda = 4, \, \lambda= 10$ y
+    $x \in \{0, 1, \cdots , 30\}$. No olvidar la leyenda y la función en
+    el eje **y**.
+:::
 
-***
+------------------------------------------------------------------------
 
-<div align="justify">
-- La función de distribución **Binomial** se define por: 
-$$f(x) = \frac{n!}{x!(n-x)!}p^x(1-p)^{n-x}$$
-Donde $p$ representa la probabilidad de éxito y $n$ la cantidad de ensayos a realizar. $x!$ es el factorial de $x$. Realice un plot que le permita gráficar esta función para $n = 25$ y $p = 0.3, \, p=0.5, \, p=0.7$. $x$ es una variable entera y vamos a definirla como: $x \in \{0, 1, \cdots, 25 \}$. No olvidar la función en el eje **y** y las leyendas. 
-</div>
+::: {align="justify"}
+-   La función de distribución **Binomial** se define por:
+    $$f(x) = \frac{n!}{x!(n-x)!}p^x(1-p)^{n-x}$$ Donde $p$ representa la
+    probabilidad de éxito y $n$ la cantidad de ensayos a realizar. $x!$
+    es el factorial de $x$. Realice un plot que le permita gráficar esta
+    función para $n = 25$ y $p = 0.3, \, p=0.5, \, p=0.7$. $x$ es una
+    variable entera y vamos a definirla como:
+    $x \in \{0, 1, \cdots, 25 \}$. No olvidar la función en el eje **y**
+    y las leyendas.
+:::
 
 ## Polígonos.
 
@@ -481,8 +607,11 @@ polygon(x_pol, y_pol, col = "red", border = "blue")
 # Estructuras de datos
 
 ## Vectores
-<div align="justify">
-Los vectores en _R_ son la estructura de datos básica. Se caracteriza porque todos los objetos deben ser del mismo tipo: lógicos, enteros, númericos, complejos o texto. 
+
+::: {align="justify"}
+Los vectores en *R* son la estructura de datos básica. Se caracteriza
+porque todos los objetos deben ser del mismo tipo: lógicos, enteros,
+númericos, complejos o texto.
 
 ```{r, eval=TRUE, collapse=TRUE, highlight=TRUE}
  c(1, c(10, 20, 10), 5)
@@ -493,12 +622,13 @@ Los vectores en _R_ son la estructura de datos básica. Se caracteriza porque to
  rep(c(1, 3, 5), c(5, 2, 4))
  
 ```
-</div>
+:::
 
-***
+------------------------------------------------------------------------
 
-<div align="justify">
-Si se mezclan diferentes objetos en un mismo vector, _R_ los convierte a un mismo tipo. 
+::: {align="justify"}
+Si se mezclan diferentes objetos en un mismo vector, *R* los convierte a
+un mismo tipo.
 
 ```{r, eval=TRUE, collapse=TRUE, highlight=TRUE}
 c(TRUE, FALSE, "hola") # Todos texto
@@ -507,17 +637,22 @@ c(5L, 4L, 2.5) # Todos double
 c(5, 5+2i) # Todos complejos. 
 
 ```
-</div>
+:::
 
-_**Ejercicio:**_ Determine la jerarquía que utiliza _R_ para convertir los objetos diferentes contenidos en un mismo vector. 
+***Ejercicio:*** Determine la jerarquía que utiliza *R* para convertir
+los objetos diferentes contenidos en un mismo vector.
 
-_Sujerencia:_ Cree un vector con todos los objetos y observe el resultado. 
+*Sujerencia:* Cree un vector con todos los objetos y observe el
+resultado.
 
-***
+------------------------------------------------------------------------
 
-### Indexación de vectores. 
-<div align="justify">
-La indexación es la forma como podemos acceder a los elementos de un vector. Para ello se utlizan los corchetes, **[]**, y la posición del elemento a seleccionar.  
+### Indexación de vectores.
+
+::: {align="justify"}
+La indexación es la forma como podemos acceder a los elementos de un
+vector. Para ello se utlizan los corchetes, **[]**, y la posición del
+elemento a seleccionar.
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
 x <- c(2, 3, 7, 11, 13, 17, 19, 23, 27)
@@ -530,13 +665,14 @@ x[3:6] # Accedemos a los del 3 al 6.
 
 x[c(1, 4, 6, 9)] # Accedemos a los elementos 1, 4, 6 y  9.
 ```
-</div>
+:::
 
-***
+------------------------------------------------------------------------
 
 ### Indexaciones lógicas de vectores
 
-En este tipo de indexaciones los elementos son seleccionados si cumplen una condición. 
+En este tipo de indexaciones los elementos son seleccionados si cumplen
+una condición.
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
 x <- c(-10, -5, 8, 12, 21, -17, 9)
@@ -549,14 +685,16 @@ x[x > 0 & x < 12] # Valores mayores a 0 y menores a 12.
 
 x[x < -5 | x > 12] # Valores menores a -5 y mayores a 12. 
 ```
-***
+
+------------------------------------------------------------------------
 
 ### Estimar $\pi$
 
-
 ## Data frames.
-<div align="justify">
-Esta estructura permite almacenar la información de forma tabular. Cada columna debe ser del mismo tipo ya que representa una misma variable. 
+
+::: {align="justify"}
+Esta estructura permite almacenar la información de forma tabular. Cada
+columna debe ser del mismo tipo ya que representa una misma variable.
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
 set.seed(2)
@@ -566,11 +704,11 @@ datos <- data.frame(
   )
 head(datos)
 ```
-</div>
+:::
 
-***
+------------------------------------------------------------------------
 
-### Indexación de data frames. 
+### Indexación de data frames.
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
 datos$Inicial
@@ -583,7 +721,7 @@ datos[3:6, ]
 
 ```
 
-***
+------------------------------------------------------------------------
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
 datos[c(2, 5, 9), ]
@@ -593,7 +731,8 @@ datos[c(2, 5, 9), 2:3]
 datos[c(2, 5, 9), c("Inicial", "sexo")]
 ```
 
-***
+------------------------------------------------------------------------
+
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
 datos[1:5, c("Inicial", "sexo")]
 
@@ -607,7 +746,8 @@ datos$altura[c(1, 5, 10)]
 
 ```
 
-***
+------------------------------------------------------------------------
+
 ### Indexación lógica con data frames
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
@@ -616,7 +756,9 @@ datos[datos$peso >= 68, ]
 datos[datos$sexo == 1, ]
 
 ```
-***
+
+------------------------------------------------------------------------
+
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
 datos[datos$sexo == 1 & datos$altura <= 170, ]
 
@@ -627,64 +769,71 @@ datos[datos$altura <= 165 & datos$peso >= 53, c("altura", "peso")]
 ```
 
 ## Ingresar datos
-<div align="justify">
-Leer información es una de las actividades que más se realizan durante el análisis de datos. Esta información puede venir en diferentes formatos como:
 
- - Archivos separados por comas (.csv).
+::: {align="justify"}
+Leer información es una de las actividades que más se realizan durante
+el análisis de datos. Esta información puede venir en diferentes
+formatos como:
 
- - Libros de Excel (.xlsx, .xlx).
+-   Archivos separados por comas (.csv).
 
- - Se puede leer información de una página web. 
+-   Libros de Excel (.xlsx, .xlx).
 
- - Archivos binarios 
+-   Se puede leer información de una página web.
 
- - Imágenes, audios y vídeos. 
+-   Archivos binarios
 
-En general hay una gran cantidad de formatos. 
-</div>
+-   Imágenes, audios y vídeos.
 
-***
-<div align="justify">
-Inicialmente vamos a leer los datos con la función _read.csv()_. Vamos a leer el archivo _cities.csv_ que se encuentra en la carpeta: _‘‘Datos/Fin_Semana_1/varios’’_ del repositorio. 
+En general hay una gran cantidad de formatos.
+:::
+
+------------------------------------------------------------------------
+
+::: {align="justify"}
+Inicialmente vamos a leer los datos con la función *read.csv()*. Vamos a
+leer el archivo *cities.csv* que se encuentra en la carpeta:
+*''Datos/Fin_Semana_1/varios''* del repositorio.
 
 ```{r, eval=TRUE, highlight=TRUE, collapse=TRUE}
 ciudades <- read.csv("../Datos/Fin_Semana_1/varios/cities.csv")
 head(ciudades[1:5], 10)
 ```
-</div>
+:::
 
-***
-<div align="justify">
-Luego de leer los datos realizar las siguientes actividades. 
+------------------------------------------------------------------------
 
-- Realizar un gráfico de dispersión de longitud vs latitud. 
+::: {align="justify"}
+Luego de leer los datos realizar las siguientes actividades.
 
-- En el gráfico anterior mostrar las ciudades con más de un millón de habitantes.
+-   Realizar un gráfico de dispersión de longitud vs latitud.
 
-- Realizar un gráfico únicamente con las ciudades Colombinas. 
+-   En el gráfico anterior mostrar las ciudades con más de un millón de
+    habitantes.
 
-- Realizar un gráfico con las ciudades de los siguientes países: Estados Unidos, Canadá, México, Colombia, Venezuela, Ecuador, Perú, Bolivia, Chile, Brasil, Argentina, Uruguay, Paraguay, Surinam y Trinidad y Tobago. 
+-   Realizar un gráfico únicamente con las ciudades Colombinas.
 
-- Realizar un histograma con la variable población. 
+-   Realizar un gráfico con las ciudades de los siguientes países:
+    Estados Unidos, Canadá, México, Colombia, Venezuela, Ecuador, Perú,
+    Bolivia, Chile, Brasil, Argentina, Uruguay, Paraguay, Surinam y
+    Trinidad y Tobago.
 
-- Realizar un boxplot con la variable población. 
+-   Realizar un histograma con la variable población.
 
-</div>
+-   Realizar un boxplot con la variable población.
+:::
 
-***
+------------------------------------------------------------------------
 
-<div align="justify">
-- Leer el archivo: _cumple.csv_ y probar la paradoja del cumpleaños. 
+::: {align="justify"}
+-   Leer el archivo: *cumple.csv* y probar la paradoja del cumpleaños.
 
-- Leer el archivo: _datos_fumadores.csv_ y realizar los siguientes gráficos: Un boxplot de edad vs Fumador, Presión vs Fumador y Riesgo vs Fumador.
+-   Leer el archivo: *datos_fumadores.csv* y realizar los siguientes
+    gráficos: Un boxplot de edad vs Fumador, Presión vs Fumador y Riesgo
+    vs Fumador.
 
-- Realizar una prueba t-estudent para determinar si el fumar impacta el riesgo, presión y la edad. 
-</div>
+-   Realizar una prueba t-estudent para determinar si el fumar impacta
+    el riesgo, presión y la edad.
+:::
 
 ## Referencias
-
-
-
-
-
-

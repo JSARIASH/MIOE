@@ -4,8 +4,8 @@ author: "Juan Sebastián Arias Hernández"
 subtitle: Una introducción no tan breve
 output:
   ioslides_presentation:
-    logo: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/Rlogo.png
-    css: ~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/estilo.css
+    logo: ~/Documents/UTP/Cursos/Maestria_IO/Repo_Nivelatorio_R/Presentaciones/Imagenes_presentacion/Rlogo.png
+    css: ~/Documents/UTP/Cursos/Maestria_IO/Repo_Nivelatorio_R/Presentaciones/Imagenes_presentacion/estilo.css
   slidy_presentation: default
   beamer_presentation: default
 institute: Universidad Tecnológica de Pereira
@@ -68,7 +68,6 @@ graficos_precio <- function(x) {
 }
 
 ```
-
 
 # Introducción a _Tidyverse_
 ***
@@ -573,7 +572,7 @@ tibble::tibble(dia = c(1, 1, 1), minuto = c(1:3), irradiacion=c(0,0,0))
 ***
 - Realizar un gráfico que permita observar los perfiles para cada día
 <center>
-![Perfiles](~/Documents/Cursos/Maestria_IO/Repo/Presentaciones/Imagenes_presentacion/Perfiles.svg){width=100%, height=100%}
+![Perfiles](~/Documents/UTP/Cursos/Maestria_IO/Repo_Nivelatorio_R/Presentaciones/Imagenes_presentacion/Perfiles.svg){width=100%, height=100%}
 </center>
 
 ***
